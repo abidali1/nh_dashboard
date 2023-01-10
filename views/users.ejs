@@ -1,0 +1,262 @@
+<%- include('header') %>
+<!-- DataTables -->
+<link rel="stylesheet" href="assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+<link rel="stylesheet" href="assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+<!-- Toastr -->
+<link rel="stylesheet" href="assets/plugins/toastr/toastr.min.css">
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>DataTables</h1> \
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">DataTables</li>
+
+          </ol>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">New User</button>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+
+          <!-- /.card -->
+
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">DataTable with default features</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>User ID</th>
+                    <th>Name</th>
+                    <th>Rodle</th>
+                    <th>Created At</th>
+                  </tr>
+                </thead>
+                <tbody id="dtBoday">
+
+
+
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <th>Rendering engine</th>
+                    <th>Browser</th>
+                    <th>Platform(s)</th>
+                    <th>Engine version</th>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New User</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="userForm">
+        <div class="modal-body">
+
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">User Full Name:</label>
+            <input required="required" type="text" class="form-control" id="fullname">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Password:</label>
+            <input required="required" class="form-control" id="password"></input>
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Role:</label>
+            <select required="required" required="required" class="form-control" id="role">
+              <option id="user">User</option>
+              <option id="admin">Admin</option>
+              <option id="officer">Officer</option>
+
+
+            </select>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Add</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include('footer') %>
+
+<!-- DataTables  & Plugins -->
+<script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="assets/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="assets/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="assets/plugins/jszip/jszip.min.js"></script>
+<script src="assets/plugins/pdfmake/pdfmake.min.js"></script>
+<script src="assets/plugins/pdfmake/vfs_fonts.js"></script>
+<script src="assets/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="assets/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+<script src="assets/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+<!-- Toastr -->
+<script src="assets/plugins/toastr/toastr.min.js"></script>
+<!-- Page specific script -->
+<div id="myData" style="display: none;"><%- data %> </div>
+<script>
+  var dataTable;
+  $(() => {
+    //console.log($('#myData').html());
+    //var rows = JSON.stringify($('#myData').html());
+    var rows = JSON.parse($('#myData').html());
+
+    dataTable = $("#example1").DataTable({
+      "responsive": true,
+      "lengthChange": false,
+      "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    });
+    dataTable.buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)')
+    rows.forEach((row) => {
+      dataTable.row.add([row.id, row.name, row.role, row.createdAt]).draw();
+    });
+
+  });
+
+
+
+
+  $('#exampleModal').on('show.bs.modal', function(event) {
+    var button = $(event.relatedTarget) // Button that triggered the modal
+    var recipient = button.data('whatever') // Extract info from data-* attributes
+    // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+    // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+
+  })
+
+
+  $('#userForm').submit(function() {
+
+    addUser2();
+    return false;
+  });
+
+
+
+
+  function addUser() {
+    // data to be sent to the POST request
+    let _data = {
+      name: $('#fullname').val(),
+      role: $('#role').val(),
+      password: $('#password').val()
+    }
+
+    fetch('http://localhost:3000/users/add', {
+        method: "POST",
+        body: JSON.stringify(_data),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+        }
+      })
+      .then(response => response.json())
+      .then(json => {
+        console.log(json);
+        $(document).Toasts('create', {
+          class: 'bg-success',
+          title: 'Success',
+          subtitle: 'Done',
+          body: 'User Added Successfully.'
+        });
+
+        dataTable.row.add([json.id, json.name, json.role, json.createdAt]).draw(false);
+
+
+      })
+      .catch(err => {
+        console.log(err);
+        $(document).Toasts('create', {
+          class: 'bg-danger',
+          title: 'Error',
+          subtitle: 'Failed',
+          body: 'Server ERROR. check console.'
+        });
+      });
+  }
+
+
+
+  async function addUser2(req,res) {
+    // data to be sent to the POST request
+    let _data = {
+      name: $('#fullname').val(),
+      role: $('#role').val(),
+      password: $('#password').val()
+    }
+
+    try {
+      const response = await fetch('http://localhost:3000/users/add', {
+        method: "POST",
+        body: JSON.stringify(_data),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+        }
+      });
+
+      const json = await response.json();
+      $(document).Toasts('create', {
+        class: 'bg-success',
+        title: 'Success',
+        subtitle: 'Done',
+        body: 'User Added Successfully.'
+      });
+
+      dataTable.row.add([json.id, json.name, json.role, json.createdAt]).draw(false);
+    } catch (err) {
+      console.log(err);
+      $(document).Toasts('create', {
+        class: 'bg-danger',
+        title: 'Error',
+        subtitle: 'Failed',
+        body: 'Server ERROR. check console.'
+      });
+    }
+
+  }
+</script>

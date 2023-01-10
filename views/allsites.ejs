@@ -1,0 +1,565 @@
+<%- include('header') %>
+
+
+
+<div class="content-wrapper" style="min-height: 2488.31px;">
+  
+
+ 
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>
+            News &amp; Keywords
+            <small>Dashboard</small>
+          </h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">Modals &amp; Alerts</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="secAnalytics" style="display: none;     padding-top: 0; padding-bottom: 0;" class="content-header">
+
+  <div class="row">
+    <div class="col-md-3 col-sm-6 col-12">
+      <div class="info-box">
+        <span class="info-box-icon bg-info"><i class="far fa-flag"></i></span>
+
+        <div class="info-box-content">
+          <span class="info-box-text">Countires</span>
+          <span id="Acountries" class="info-box-number">0</span>
+        </div>
+        <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+    <div class="col-md-3 col-sm-6 col-12">
+      <div class="info-box">
+        <span class="info-box-icon bg-success"><i class="fas fa-hashtag"></i></span>
+
+        <div class="info-box-content">
+          <span class="info-box-text">Keywords</span>
+          <span id="Akeywords" class="info-box-number">0</span>
+        </div>
+        <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+    <div class="col-md-3 col-sm-6 col-12">
+      <div class="info-box">
+        <span class="info-box-icon bg-warning"><i class="fas fa-quote-right"></i></span>
+
+        <div class="info-box-content">
+          <span class="info-box-text">Opinions</span>
+          <span id="Aopinions" class="info-box-number">0</span>
+        </div>
+        <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+    <div class="col-md-3 col-sm-6 col-12">
+      <div class="info-box">
+        <span class="info-box-icon bg-danger"><i class="fas fa-map-marked-alt"></i></span>
+        <div class="info-box-content">
+          <span class="info-box-text">Regions</span>
+          <span id="Aregions" class="info-box-number">0</span>
+        </div>
+        <!-- /.info-box-content -->
+      </div>
+    </div>
+
+      <div class="col-md-3 col-sm-6 col-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-info"><i class="far fa-folder"></i></span>
+          <div class="info-box-content">
+            <span class="info-box-text">Folders</span>
+            <span id="Afolders" class="info-box-number">0</span>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+      </div>
+
+
+      <div class="col-md-3 col-sm-6 col-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-success"><i class="fas fa-cog"></i></span>
+  
+          <div class="info-box-content">
+            <span class="info-box-text">Sources</span>
+            <span id="Asources" class="info-box-number">0</span>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+      </div>
+
+      <div class="col-md-3 col-sm-6 col-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-warning"><i class="far fa-save"></i></span>
+  
+          <div class="info-box-content">
+            <span class="info-box-text">Saved News</span>
+            <span id="AsavedNews" class="info-box-number">0</span>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+      </div>
+
+      <div class="col-md-3 col-sm-6 col-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-danger"><i class="far fa-sticky-note"></i></span>
+  
+          <div class="info-box-content">
+            <span class="info-box-text">Notes</span>
+            <span id="Anotes" class="info-box-number">0</span>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+      </div>
+
+    </div>
+    <!-- /.col -->
+
+
+
+
+  </section>
+
+  <section id="secNotes" style="display: none;" class="content-header"></section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- /.Keywords -->
+        <div class="col-md-12">
+          <div class="card card-primary card-outline">
+            <div class="card-header">
+              <h3 class="card-title">
+                <i class="fas fa-edit"></i>
+                Keywords
+              </h3>
+            </div>
+            <div id="myKW" style="display: none;"><% keywords %> </div>
+            <div id="mySources" style="display: none;"><%= sources %> </div>
+            <div id="myCountries" style="display: none;"><%= countries %> </div>
+
+
+
+            <div class="card-body" id="accordion">
+              <%   var cat; keywords1=JSON.parse(keywords); keywords1.forEach((row) => { if (cat==row.name) {  %>
+
+              <% } else { cat=row.name; %>
+
+              <button style="    margin-bottom: 5px;margin-right: 3px;" type="button" attr="<%= row.cat_id %>" class="btn bg-gradient-secondary" data-toggle="collapse" data-target=".<%= row.name.replace(' ','_') %>" aria-expanded="false" aria-controls="collapseExample">
+                <%= row.name.toUpperCase() %>
+              </button>
+
+
+              <%   }}); %>
+            </div>
+
+
+
+
+
+            <%   var cat1; keywords=JSON.parse(keywords); keywords.forEach((row) => { if (cat1==row.name) {  %>
+            <button type="button" attr="<%= row.keyword_id %>" class="KW btn btn-default" data-toggle="modal" data-target="#modal-default">
+              <%= row.word %>
+            </button>
+            <% } else { cat1=row.name; %>
+
+          </div>
+        </div>
+
+
+        <div class="collapse data-parent='#accordion' <%= row.name.replace(' ','_')   %>">
+          <div class="card-body">
+            <button type="button" attr="<%= row.cat_id %>" class="KW_Cat btn bg-gradient-secondary" data-toggle="collapse" data-target=".<%= row.name %>" aria-expanded="false" aria-controls="collapseExample">
+              All
+            </button>
+
+            <button type="button" attr="<%= row.keyword_id %>" class="KW btn btn-default" data-toggle="modal" data-target="#modal-default">
+              <%= row.word %>
+            </button>
+
+            <%   }}); %>
+            <!-- /.card -->
+          </div>
+
+
+        </div>
+
+        <!-- jQuery -->
+
+
+        <div id="newsBlock" class="col-md-12">
+
+
+
+
+        </div><!-- /.container-fluid -->
+      </div>
+    </div>
+    <div style='text-align: center;' class="card"><button id='loadMore'>LOAD MORE</button></div>
+
+  </section>
+  <!-- /.content -->
+</div>
+
+
+</div>
+
+
+<%- include('footer') %>
+
+
+<script>
+  var user_id = '3';
+  var keyword_id = '0';
+  var keyword_cat_id = '0';
+  var start_date = '0';
+  var end_date = '0';
+  var country = '0';
+  var source_id = '0';
+  var folder_id = '0';
+  var limit = 20;
+  var skip = 0;
+
+
+  function reset_param() {
+    keyword_id = '0';
+    keyword_cat_id = '0';
+    start_date = '0';
+    end_date = '0';
+    country = $('#newsCountries').val();
+    source_id = $('#newsSources').val();
+    folder_id = '0';
+
+    limit = 20;
+    skip = 0;
+  }
+
+
+  function concat_param() {
+    return user_id + '!' + keyword_id + '!' + keyword_cat_id + '!' + start_date + '!' + end_date + '!' + country + '!' + source_id + '!' + folder_id + '!' + limit + '!' + skip;
+  }
+
+  function load_Countries_Sources() {
+    const country = JSON.parse($('#myCountries').html());
+    const source = JSON.parse($('#mySources').html());
+
+    country.forEach(row => {
+      $('#newsCountries').append($('<option/>', {
+        value: row.name,
+        text: row.name
+      }));
+    })
+
+
+    source.forEach(row => {
+      $('#newsSources').append($('<option/>', {
+        value: row.id,
+        text: row.source
+      }));
+    })
+
+  }
+
+
+
+
+  $(function() {
+
+    load_Countries_Sources();
+    loadNewsFromNavBarFileters();
+    $('.KW').on('click', function() {
+      $('#newsBlock').html('');
+      skip = 0;
+      keyword_cat_id = '0';
+      keyword_id = $(this).attr('attr');
+      loadNewsFromNavBarFileters();
+
+    });
+
+    $('.KW_Cat').on('click', function() {
+      $('#newsBlock').html('');
+      keyword_id = '0';
+      keyword_cat_id = $(this).attr('attr');
+      loadNewsFromNavBarFileters();
+    });
+
+
+
+    $('#home').on('click', function() {
+      reset_param();
+      $('#newsBlock').html('');
+      loadNewsFromNavBarFileters();
+
+    });
+
+    $('#today').on('click', function() {
+      reset_param();
+      var date = new Date();
+      date.setDate(date.getDate());
+      var dateString = date.toISOString().split('T')[0]; // "2016-06-08"
+      start_date = end_date = dateString;
+
+      $('#newsBlock').html('');
+      loadNewsFromNavBarFileters();
+
+    });
+
+    $('#pastweek').on('click', function() {
+      reset_param();
+      var date = new Date();
+      end_date = date.toISOString().split('T')[0];
+      date.setDate(date.getDate() - 7);
+      start_date = date.toISOString().split('T')[0];
+
+      $('#newsBlock').html('');
+      loadNewsFromNavBarFileters();
+
+    });
+
+    $('#pastmonth').on('click', function() {
+      reset_param();
+      var date = new Date();
+      end_date = date.toISOString().split('T')[0];
+      date.setDate(date.getDate() - 30);
+      start_date = date.toISOString().split('T')[0];
+
+      $('#newsBlock').html('');
+      loadNewsFromNavBarFileters();
+
+    });
+
+
+    $('#pastyear').on('click', function() {
+      reset_param();
+      var date = new Date();
+      end_date = date.toISOString().split('T')[0];
+      date.setDate(date.getDate() - 365);
+      start_date = date.toISOString().split('T')[0];
+
+      $('#newsBlock').html('');
+      loadNewsFromNavBarFileters();
+
+    });
+
+
+
+    $('#datesbutton').on('click', function() {
+      reset_param();
+      $('#newsBlock').html('');
+      if ($('#startdate').val() != '' && $('#enddate').val() != '') {
+
+        start_date = $('#startdate').val();
+        end_date = $('#enddate').val();
+
+        loadNewsFromNavBarFileters();
+      } else {
+        $('#loadMore').html('No Data Available');
+
+        $(document).Toasts('create', {
+          class: 'bg-danger',
+          title: 'Error',
+          subtitle: 'Failed',
+          body: 'Invalid Date. Please select Valid From and To Dates.'
+        });
+      }
+
+    });
+
+
+    $("body").on('click', '.nav_folders', function() {
+
+      reset_param();
+      $('#newsBlock').html('');
+
+      folder_id = $(this).attr('folder_id');
+      loadNewsFromNavBarFileters();
+
+
+    });
+
+
+
+
+    $('#loadMore').on('click', function() {
+
+
+//      alert(`limit: ${limit}     Skip:${skip} `);
+      skip = skip + 20;
+      loadNewsFromNavBarFileters();
+
+    });
+
+  });
+
+
+
+
+  // }
+
+
+  async function loadNewsFromNavBarFileters() {
+    // data to be sent to the POST request
+
+    $('#secNotes').fadeOut();
+
+
+    try {
+
+      // let myURL=await fetch('/assets/config/config.json');
+      // myURL=await myURL.json();
+      // console.log(myURL);
+
+      const response = await fetch(`/news/filter/` + concat_param(), {
+        method: "Get",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+        }
+      });
+
+      const json = await response.json();
+      //   console.log(json);
+      if (Object.keys(json).length == 0)
+        $('#loadMore').html('No Data Available');
+      else
+        $('#loadMore').html('Load More');
+      // $('#newsBlock').html('');
+      json.forEach(row => {
+       var date= new Date(row.pub_date);
+date=date.toDateString();
+        var news = newsTemplate(row.news_id, row.source, date, row.title.toUpperCase(), row.description, row.url, row.key_words.replace(',', ' | '), row.in_folder, row.notes_news);
+        // console.log(news);
+        $('#newsBlock').append(news);
+
+      });
+
+
+
+      // dataTable.row.add([json.id, json.name, json.role, json.createdAt]).draw(false);
+    } catch (err) {
+      console.log(err);
+      $(document).Toasts('create', {
+        class: 'bg-danger',
+        title: 'Error',
+        subtitle: 'Failed',
+        body: 'Server ERROR. check console.'
+      });
+    }
+
+  }
+
+
+
+
+  function newsTemplate(news_id, source, pub_date, title, description, url, keywords, in_folder, notes_news) {
+    var save_btn;
+    var note_btn;
+
+    
+
+    
+    //alert(in_folder);
+    if (in_folder == null)
+      save_btn = `<a news_id="${news_id}" data-toggle="modal" data-target="#addToFolderModel" class="link-black text-sm mr-2 saveBTN" href="#"><i class="fas fa-save mr-1"></i> UNSAVED</a>`;
+    else {
+      var folder_name = document.querySelector(`[folder_id="${in_folder}"]`);
+      folder_name = $(folder_name).find('p').html();
+      save_btn = `<a news_id="${news_id}" folder_id="${in_folder}" data-toggle="modal" data-target="#addToFolderModel" class="link-black text-sm mr-2 saveBTN" href="#"><i class="fas fa-save mr-1 text-info"></i> SAVED (<i class="nav-icon fas  fa-folder"></i> ${folder_name})</a>`;
+    }
+
+
+    if (notes_news == null)
+      note_btn = `     <a news_id="${news_id}" data-toggle="modal" data-target="#modelNotes" class="link-black text-sm mr-2 btnNotes" href="#"><i class="fas fa-sticky-note mr-1"></i>Notes</a>`;
+
+    else {
+
+      note_btn = `     <a news_id="${news_id}" data-toggle="modal" data-target="#modelNotes" class="link-black text-sm mr-2 btnNotes" href="#"><i class="fas fa-sticky-note mr-1" style="color:green"></i>Notes (Added)</a>`;
+
+    }
+
+    var myNews = `   <div class="col-md-12">
+       
+
+
+
+          <div class="card">
+
+
+            <div class="card-body">
+              <div class="tab-content">
+                <div class="tab-pane active" id="activity">
+                  <!-- Post -->
+                  <div class="post">
+                    <div style="margin-left: 0;    margin-bottom: 0px;" class="user-block">
+                      <!-- <img class="img-circle img-bordered-sm" src="../../dist/img/user1-128x128.jpg" alt="user image"> -->
+                      <span style="margin-left: 0;" class="username">
+                        <a class=" float-left " style='font-size:18px; '   href="#">   ${source}</a>
+
+                        <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
+                        <a href="#" class="float-right btn-tool">${keywords}</a>
+                        <a style="margin-top: 4px;margin-left: 5px;" class="description float-left ">${pub_date}</a>
+
+
+                      </span>
+                    </div>
+                    <!-- /.user-block -->
+                    <h5 style='font-size:18px; color:#6c757d;font-weight: 600; font-size: 1.25rem;margin-bottom:0px'>
+                      ${title}
+                    </h5>
+                    <h6 style="    font-size: 18px;;">
+                      ${description}
+                    </h6>
+
+                    <p style='margin:0;font-weight: 600;'>
+                     ${save_btn}
+                      <span class="float-right">
+                        ${note_btn}
+                        <a href=' ${url}' class="link-black text-sm"><i class="far fa-folder-open mr-1"></i> Open</a>
+                
+
+                      </span>
+                    </p>
+
+                  </div>
+                  <!-- /.post -->
+
+
+
+                  <!-- /.tab-pane -->
+
+                  <!-- /.tab-pane -->
+                </div>
+                <!-- /.tab-content -->
+              </div><!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+
+          <!-- /.col -->
+        </div>
+       
+        `;
+
+    return myNews;
+
+  }
+</script>
