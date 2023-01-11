@@ -1,10 +1,10 @@
 {
   "development": {
 
-    "username": "root",
-    "password": "Abid1992",
-    "server": "localhost", 
-    "database": "db_newshunt",
+    "username": "shunt_demouser",
+    "password": "i+Tj~#)OM,sx",
+    "server": "64.31.22.58", 
+    "database": "shunt_newshunt",
     "dialect": "mysql"
   },
   "test": {

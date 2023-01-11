@@ -1,6 +1,6 @@
 {
-    "host"     : "localhost",
-    "user"     : "root",
-    "password" : "Abid1992",
-    "database" : "db_newshunt"
+    "host"     : "64.31.22.58",
+    "user"     : "shunt_demouser",
+    "password" : "i+Tj~#)OM,sx",
+    "database" : "shunt_newshunt"
 }

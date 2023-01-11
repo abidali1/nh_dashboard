@@ -17,6 +17,15 @@ router.get('/', (req, res) => {
 
 
 
+// router.get('/', (req, res) => {
+//     res.send('the app is running');
+
+// });
+
+// router.get('/abc', (req, res) => {
+//     res.json({code:0, message: 'api working correctly'});
+
+// });
 
 
 

@@ -76,14 +76,16 @@ addUser();
 
 
 
-
-
-
-db.sequelize.sync({alter:true}).then(()=>{
-    app.listen(3000,()=>{
-        console.log('server is running at 3000');
-    });
-
+app.listen(3000,()=>{
+    console.log('server is running at 3000');
 });
+
+
+// db.sequelize.sync({alter:true}).then(()=>{
+//     app.listen(3000,()=>{
+//         console.log('server is running at 3000');
+//     });
+
+// });
 
 
