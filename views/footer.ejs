@@ -131,6 +131,12 @@
 
       $('#allNotes').on('click', function() {
         getAllNotes(3);
+        $('#secAnalytics').hide();
+        $('#newsBlock').hide();
+        $('#secNotes').show();
+        $('#sec_keywords').hide();        
+        $('#loadMore').hide();
+
 
       });
 
@@ -139,7 +145,13 @@
 
         getAnalytics(3);
 
-        $('#secAnalytics').fadeToggle();
+        $('#secAnalytics').show();
+        $('#newsBlock').hide();
+        $('#secNotes').hide();
+        $('#sec_keywords').hide();        
+        $('#loadMore').hide();
+        
+
       });
 
     });
@@ -479,7 +491,6 @@ try {
     }
   });
   const json = await response.json();
-  $('#secNotes').fadeToggle();
   $('#secNotes').html(``);
   $('#secNotes').html(`<div ">
 

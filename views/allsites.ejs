@@ -144,8 +144,11 @@
   <!-- Main content -->
   <section class="content">
     <div class="container-fluid">
+     
       <div class="row">
         <!-- /.Keywords -->
+        
+        <div class="col-md-12" id="sec_keywords">
         <div class="col-md-12">
           <div class="card card-primary card-outline">
             <div class="card-header">
@@ -203,7 +206,7 @@
 
 
         </div>
-
+      </div>
         <!-- jQuery -->
 
 
@@ -420,7 +423,12 @@
   async function loadNewsFromNavBarFileters() {
     // data to be sent to the POST request
 
-    $('#secNotes').fadeOut();
+   
+        $('#secAnalytics').hide();
+        $('#newsBlock').show();
+        $('#secNotes').hide();
+        $('#sec_keywords').show();        
+        $('#loadMore').show();
 
 
     try {
@@ -479,20 +487,20 @@ date=date.toDateString();
     
     //alert(in_folder);
     if (in_folder == null)
-      save_btn = `<a news_id="${news_id}" data-toggle="modal" data-target="#addToFolderModel" class="link-black text-sm mr-2 saveBTN" href="#"><i class="fas fa-save mr-1"></i> UNSAVED</a>`;
+      save_btn = `<a news_id="${news_id}" data-toggle="modal" data-target="#addToFolderModel" class="link-black text-sm mr-2 saveBTN" href="#"><i class="fas fa-save mr-1"></i>Not Saved</a>`;
     else {
       var folder_name = document.querySelector(`[folder_id="${in_folder}"]`);
       folder_name = $(folder_name).find('p').html();
-      save_btn = `<a news_id="${news_id}" folder_id="${in_folder}" data-toggle="modal" data-target="#addToFolderModel" class="link-black text-sm mr-2 saveBTN" href="#"><i class="fas fa-save mr-1 text-info"></i> SAVED (<i class="nav-icon fas  fa-folder"></i> ${folder_name})</a>`;
+      save_btn = `<a news_id="${news_id}" folder_id="${in_folder}" data-toggle="modal" data-target="#addToFolderModel" class=" text-success link-black text-sm mr-2 saveBTN" href="#"><i class="fas fa-save mr-1"></i> SAVED (<i class="nav-icon fas  fa-folder"></i> ${folder_name})</a>`;
     }
 
 
     if (notes_news == null)
-      note_btn = `     <a news_id="${news_id}" data-toggle="modal" data-target="#modelNotes" class="link-black text-sm mr-2 btnNotes" href="#"><i class="fas fa-sticky-note mr-1"></i>Notes</a>`;
+      note_btn = `     <a news_id="${news_id}" data-toggle="modal" data-target="#modelNotes" class="text-danger link-black text-sm mr-2 btnNotes" href="#"><i class="fas fa-sticky-note mr-1"></i>Notes Not Added</a>`;
 
     else {
 
-      note_btn = `     <a news_id="${news_id}" data-toggle="modal" data-target="#modelNotes" class="link-black text-sm mr-2 btnNotes" href="#"><i class="fas fa-sticky-note mr-1" style="color:green"></i>Notes (Added)</a>`;
+      note_btn = `     <a news_id="${news_id}" data-toggle="modal" data-target="#modelNotes" class="text-success link-black text-sm mr-2 btnNotes" href="#"><i class="fas fa-sticky-note mr-1" ></i>Notes</a>`;
 
     }
 
@@ -515,7 +523,6 @@ date=date.toDateString();
                         <a class=" float-left " style='font-size:18px; '   href="#">   ${source}</a>
 
                         <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
-                        <a href="#" class="float-right btn-tool">${keywords}</a>
                         <a style="margin-top: 4px;margin-left: 5px;" class="description float-left ">${pub_date}</a>
 
 
@@ -538,7 +545,9 @@ date=date.toDateString();
 
                       </span>
                     </p>
-
+                    <p style='margin:0;font-weight: 600; font-size:small'>
+                    <a href="#" class="float-left text-info">Keywords: ${keywords}</a>
+</p>
                   </div>
                   <!-- /.post -->
 
