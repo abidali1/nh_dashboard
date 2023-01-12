@@ -1,0 +1,14 @@
+const express = require('express');
+const router = express.Router();
+const query = require('../config/query.js');
+const db = require('../models');
+
+
+
+router.get('/', (req, res) => {
+  //  console.log('tst');
+    res.render('notes');
+
+});
+
+module.exports = router;

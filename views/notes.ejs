@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Newshunt | Dashboard</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="assets/plugins/fontawesome-free/css/all.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="assets/dist/css/adminlte.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="assets\docs\assets\css\icheck-material.min.css">
+  <link rel="stylesheet" href="assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+  <link rel="stylesheet" href="assets/plugins/summernote/summernote-bs4.min.css">
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <!-- Site wrapper -->
+  <div class="wrapper">
+
+
+
+
+    <!-- Content Wrapper. Contains page content -->
+
+    <!-- /.content-wrapper -->
+
+
+
+
+
+    <div style="margin-left:0" class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1>Note Editor</h1>
+            </div>
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active">Blank Page</li>
+              </ol>
+            </div>
+          </div>
+        </div><!-- /.container-fluid -->
+      </section>
+
+      <!-- Main content -->
+      <section class="row content">
+
+        <!-- Default box -->
+        <div  id="news_part" class="col-md-6" class="col-md-6">
+
+
+
+
+          <div class="card">
+
+
+            <div class="card-header" style="    background-color: #e6edf4;">
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+
+
+              <div style="margin-left: 0;    margin-bottom: 0px;" class="row">
+                <!-- <img class="img-circle img-bordered-sm" src="../../dist/img/user1-128x128.jpg" alt="user image"> -->
+                <span style="margin-left: 0;" class="username user-block">
+                  <a class=" float-left " style="font-size:18px; " href="#"> Business Recorder</a>
+
+
+                  <a style="margin-top: 4px;margin-left: 5px;" class="description float-left ">Sat Jul 30 2022</a>
+
+
+                </span>
+              </div>
+
+              <div class="row" style="margin-left:0;">
+                <h5 style="font-size:18px; color:#6c757d;font-weight: 600; font-size: 1.25rem;margin-bottom:0px">EUROPEAN GASOLINE BARGE REFINING MARGINS STABLE</h5>
+
+              </div>
+
+
+            </div>
+
+            <div>
+              <div class="card-body">
+                <div class="tab-content">
+                  <div class="tab-pane active" id="activity">
+                    <!-- Post -->
+                    <div class="post">
+
+                      <h6 style="    font-size: 18px;min-height: 250px;">
+                        EUROPE: Benchmark northwest European gasoline barge refining margins were broadly stable on Thursday around $16 a barrel as stockpiles in north western Europe rose and transatlantic exports were slowi
+                      </h6>
+
+                      <p style="margin:0;font-weight: 600;">
+                        <a news_id="1772279" folder_id="8" data-toggle="modal" data-target="#addToFolderModel" class=" text-success link-black text-sm mr-2 saveBTN" href="#"><i class="fas fa-save mr-1"></i> SAVED (<i class="nav-icon fas  fa-folder"></i> testing)</a>
+                        <span class="float-right">
+                          <a href=" https://www.brecorder.com/news/40189029/european-gasoline-barge-refining-margins-stable" class="link-black text-sm"><i class="far fa-folder-open mr-1"></i> Open</a>
+
+
+                        </span>
+                      </p>
+                      <p style="margin:0;font-weight: 600; font-size:small">
+                        <a href="#" class="float-left text-info">Keywords: afghanistan | military intelligence pakistan</a>
+                      </p>
+                    </div>
+                    <!-- /.post -->
+
+
+
+                    <!-- /.tab-pane -->
+
+                    <!-- /.tab-pane -->
+                  </div>
+                  <!-- /.tab-content -->
+                </div><!-- /.card-body -->
+
+
+
+
+
+              </div>
+
+            </div>
+            <!-- /.card -->
+
+        
+
+          </div>
+
+
+        </div>
+
+
+
+        <div  id="notes_part" class="col-md-6" class="col-md-6">
+
+
+
+            <div class="col-md-12">
+                <div class="card card-outline card-info">
+                  <div class="card-header">
+                    <h3 class="card-title">
+                      Write Your Note
+                    </h3>
+                  </div>
+                  <!-- /.card-header -->
+                  <div class="card-body">
+                    <textarea id="summernote">
+                      Place <em>some</em> <u>text</u> <strong>here</strong>
+                    </textarea>
+                  </div>
+                  <div class="card-footer">
+                     <a href="#">Note: </a> this page is under development
+                  </div>
+                </div>
+              </div>
+        
+        
+        </div>
+  
+          </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.card -->
+
+    </section>
+    <!-- /.content -->
+  </div>
+
+  </div>
+
+
+  <footer class="main-footer">
+    <div class="float-right d-none d-sm-block">
+      <b>Version</b> 1.0.0
+    </div>
+    <strong>Copyright &copy; 2023 <a href="#">newshunt</a>.</strong> All rights reserved.
+  </footer>
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+  </div>
+  <!-- ./wrapper -->
+
+  <!-- jQuery -->
+  <script src="assets/plugins/jquery/jquery.min.js"></script>
+  <!-- Bootstrap 4 -->
+  <script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="assets/dist/js/adminlte.min.js"></script>
+  <!-- AdminLTE for demo purposes -->
+  <script src="assets/dist/js/demo.js"></script>
+
+  <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
+  <script src="assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+  <script src="assets/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+  <script src="assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+  <script src="assets/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+  <script src="assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+
+  <!-- HEAVY LOADING TIME -->
+  <!-- <script src="assets/plugins/jszip/jszip.min.js"></script>
+  <script src="assets/plugins/pdfmake/pdfmake.min.js"></script>
+  <script src="assets/plugins/pdfmake/vfs_fonts.js"></script> -->
+  <script src="assets/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+  <script src="assets/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+  <script src="assets/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+  <script src="assets/plugins/summernote/summernote-bs4.min.js"></script>
+</body>
+
+</html>
+
+<script>
+      $(function () {
+    // Summernote
+    $('#summernote').summernote(
+       { minHeight: 200 }
+    )
+
+    // CodeMirror
+    CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
+      mode: "htmlmixed",
+      theme: "monokai"
+    });
+  })
+</script>
