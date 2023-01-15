@@ -336,9 +336,9 @@
               </a>
               <ul id ='folderList' class="nav nav-treeview">
                 <li class="nav-item">
-                  <a data-toggle="modal" data-target="#exampleModal" class="nav-link">
+                  <a id="addRemoveFolder" data-toggle="modal" data-target="#exampleModal" class="nav-link">
                     <i class="far fa-plus-square nav-icon"></i>
-                    <p>Add New Folder</p>
+                    <p>Add remove folder</p>
                   </a>
                 </li>
   
@@ -391,6 +391,8 @@
             <div class="form-group">
               <label for="recipient-name" class="col-form-label">Folder Name:</label>
               <input required="required" type="text" class="form-control" id="fullname">
+
+            
             </div>
          
   
@@ -398,6 +400,8 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Add</button>
+          </div>
+          <div id="removeFolderDiv" class="modal-body">
           </div>
         </form>
       </div>

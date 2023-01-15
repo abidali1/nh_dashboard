@@ -158,7 +158,13 @@
     // console.log(news);
     $('#news_part').append(news);
 
+    $('#summernote').summernote({
+      minHeight: $('#notes_part').height() - 240, // set minimum height of editor
+      maxHeight: null, // set maximum height of editor
+      focus: true,
+    });
     $('#summernote').summernote('code', row.notes_news);
+
 
 
 
@@ -173,7 +179,7 @@
 
     $("body").on('click', '.btnCopyNote', function() {
 
-      $('#summernote').summernote('code','<b>'+ row.title.toUpperCase() +'</b><p></p>'+row.body);
+      $('#summernote').summernote('code', '<b>' + row.title.toUpperCase() + '</b><p></p>' + row.body);
 
     });
 
@@ -183,9 +189,6 @@
 
     });
     // Summernote
-    $('#summernote').summernote({
-      minHeight: 200
-    })
 
     // CodeMirror
     CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
@@ -244,15 +247,12 @@
 
 
           <div style="margin-left: 0;    margin-bottom: 0px;" class="row">
-                      <!-- <img class="img-circle img-bordered-sm" src="../../dist/img/user1-128x128.jpg" alt="user image"> -->
-                      <span style="margin-left: 0;" class="username user-block">
                         <a class=" float-left " style='font-size:18px; '   href="#">   ${source}</a>
                         
 
                         <a style="margin-top: 4px;margin-left: 5px;" class="description float-left ">${pub_date}</a>
 
 
-                      </span>
                     </div>
 
                   <div  class="row" style='margin-left:0;' >  
@@ -370,13 +370,6 @@
 
 
   async function deleteNote(notes_id) {
-
-
-
-
-    // data to be sent to the POST request
-
-
     try {
       const response = await fetch(`deleteNotes/${notes_id}`, {
         method: "DELETE",
@@ -418,5 +411,9 @@
         body: message + '.'
       });
     }
+
+
   }
+
+ 
 </script>

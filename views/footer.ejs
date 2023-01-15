@@ -29,10 +29,10 @@
   <script src="assets/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
   <script src="assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
 
-    <!-- HEAVY LOADING TIME -->
+  <!-- HEAVY LOADING TIME -->
   <!-- <script src="assets/plugins/jszip/jszip.min.js"></script>
   <script src="assets/plugins/pdfmake/pdfmake.min.js"></script>
-  <script src="assets/plugins/pdfmake/vfs_fonts.js"></script> -->  
+  <script src="assets/plugins/pdfmake/vfs_fonts.js"></script> -->
   <script src="assets/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
   <script src="assets/plugins/datatables-buttons/js/buttons.print.min.js"></script>
   <script src="assets/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
@@ -44,15 +44,20 @@
 
     var notesBTN;
     $(function() {
-    //  alert();
-    // to be send to a new branch name abid
+      //  alert();
+      // to be send to a new branch name abid
 
-    // only for abid
+      // only for abid
       getFolderList();
       $('#userForm').submit(function() {
 
         addFolder();
         return false;
+      });
+
+      $('#addRemoveFolder').click(function(){
+getFolderListAddRemove();
+
       });
 
       $('#userFormCheckbox').on('change', ':radio', function() {
@@ -120,11 +125,11 @@
 
 
       $("body").on('click', '.btnNotesEdit', function() {
-       window.open("/notes/"+3+"!"+ $(this).attr('news_id'), "_blank");
+        window.open("/notes/" + 3 + "!" + $(this).attr('news_id'), "_blank");
       });
 
       $("body").on('click', '.openNews', function() {
-       window.open("/singleNews/"+3+"!"+ $(this).attr('news_id'), "_blank");
+        window.open("/singleNews/" + 3 + "!" + $(this).attr('news_id'), "_blank");
       });
 
 
@@ -139,12 +144,37 @@
         //alert($(this).attr('notes_id'));
       });
 
+
+
+
+      $('body').on('click', '.dtEditNote', function() {
+
+        window.open("/notes/" + 3 + "!" + $(this).attr('news_id'), "_blank");
+      });
+
+      $('body').on('click', '.dtDeleteNote', function() {
+        deleteNote($(this).attr('note_id')).then(() => {
+         
+       //   myToast("Deleted","Success");
+         
+          dataTable
+          .row($(this).parents('tr'))
+          .remove()
+          .draw();
+     
+        });
+});
+
+      
+
+
+
       $('#allNotes').on('click', function() {
         getAllNotes(3);
         $('#secAnalytics').hide();
         $('#newsBlock').hide();
         $('#secNotes').show();
-        $('#sec_keywords').hide();        
+        $('#sec_keywords').hide();
         $('#loadMore').hide();
 
 
@@ -158,9 +188,9 @@
         $('#secAnalytics').show();
         $('#newsBlock').hide();
         $('#secNotes').hide();
-        $('#sec_keywords').hide();        
+        $('#sec_keywords').hide();
         $('#loadMore').hide();
-        
+
 
       });
 
@@ -280,7 +310,7 @@
 
           $('#addToFolderModelFolderList').append(listItem);
 
-       //   myToast('Added to folder succesfully', 'success');
+          //   myToast('Added to folder succesfully', 'success');
           // alert($('#folderList').html());
         });
 
@@ -299,6 +329,56 @@
 
     }
 
+    async function getFolderListAddRemove() {
+
+try {
+  const response = await fetch('news/folder/3', {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json; charset=UTF-8"
+    }
+  });
+
+  var check = $('#modelFolderId').html();
+  //  alert(check);
+  //      alert($('#modelFolderId').html());
+
+  const json = await response.json();
+  //  console.log(json);
+  $('#removeFolderDiv').html('');
+  json.forEach(row => {
+
+  
+    var listItem = `   <div style='padding: 10px; background-color: #eef2ef;' class="form-group">
+        <div class="icheck-material-teal"> 
+          <a href="#" type="radio" name='folders' id="${row.id}"> <i class="nav-icon fas text-danger  fa-trash"></i> </a>  
+         <label for="${row.id}"><i class="nav-icon fas  fa-folder"></i> ${row.name}</label>
+      </div>
+      </div>`;
+
+
+    $('#removeFolderDiv').append(listItem);
+
+    //   myToast('Added to folder succesfully', 'success');
+    // alert($('#folderList').html());
+  });
+
+
+
+
+} catch (err) {
+  console.log(err);
+  $(document).Toasts('create', {
+    class: 'bg-danger',
+    title: 'Error',
+    subtitle: 'Failed',
+    body: 'Server ERROR. check console.'
+  });
+}
+
+}
+
+   
     async function addRemove_news_folder(folder_id, news_id, user_id, check_status) {
       // data to be sent to the POST request
       let _data = {
@@ -320,7 +400,7 @@
         const json = await response.json();
         myToast('Added to folder succesfully', 'success');
         return json;
-      
+
 
         return json;
         // dataTable.row.add([json.id, json.name, json.role, json.createdAt]).draw(false);
@@ -379,7 +459,7 @@
 
         $('#notesBlock').append(listItem);
 
-      //  myToast('Note added succesfully', 'success');
+        //  myToast('Note added succesfully', 'success');
 
 
 
@@ -392,30 +472,30 @@
       }
     }
 
-    
+
     async function getNotes(user_id, news_id) {
 
 
 
 
-// data to be sent to the POST request
-let _data = {
-  name: $('#fullname').val(),
-  user_id: 3 // hard_coded
-}
+      // data to be sent to the POST request
+      let _data = {
+        name: $('#fullname').val(),
+        user_id: 3 // hard_coded
+      }
 
-try {
-  const response = await fetch(`getNotes/${user_id}!${news_id}`, {
-    method: "GET",
-    headers: {
-      "Content-type": "application/json; charset=UTF-8"
-    }
-  });
-  const json = await response.json();
-  $('#notesBlock').html('');
-  json.forEach(row => {
+      try {
+        const response = await fetch(`getNotes/${user_id}!${news_id}`, {
+          method: "GET",
+          headers: {
+            "Content-type": "application/json; charset=UTF-8"
+          }
+        });
+        const json = await response.json();
+        $('#notesBlock').html('');
+        json.forEach(row => {
 
-    var listItem = `               
+          var listItem = `               
         <div class="direct-chat-msg right">
           <div class="direct-chat-infos clearfix">
             <button notes_id="${row.id}" type="button" class="close deleteNote"  aria-label="Close">
@@ -432,78 +512,78 @@ try {
     `;
 
 
-    $('#notesBlock').append(listItem);
+          $('#notesBlock').append(listItem);
 
-    // alert($('#folderList').html());
-  });
-
-
-
-
-} catch (err) {
-  console.log(err);
-  $(document).Toasts('create', {
-    class: 'bg-danger',
-    title: 'Error',
-    subtitle: 'Failed',
-    body: 'Server ERROR. check console.'
-  });
-}
-
-}
-
-
-
-async function deleteNote(notes_id) {
+          // alert($('#folderList').html());
+        });
 
 
 
 
-// data to be sent to the POST request
+      } catch (err) {
+        console.log(err);
+        $(document).Toasts('create', {
+          class: 'bg-danger',
+          title: 'Error',
+          subtitle: 'Failed',
+          body: 'Server ERROR. check console.'
+        });
+      }
 
-
-try {
-  const response = await fetch(`deleteNotes/${notes_id}`, {
-    method: "DELETE",
-    headers: {
-      "Content-type": "application/json; charset=UTF-8"
     }
-  });
-  const json = await response.json();
-  myToast('Note removed succesfully', 'success');
-} catch (err) {
-  console.log(err);
-  $(document).Toasts('create', {
-    class: 'bg-danger',
-    title: 'Error',
-    subtitle: 'Failed',
-    body: 'Server ERROR. check console.'
-  });
-}
 
-}
 
-async function getAllNotes(user_id) {
+
+    async function deleteNote(notes_id) {
 
 
 
 
-// data to be sent to the POST request
-let _data = {
-  name: $('#fullname').val(),
-  user_id: 3 // hard_coded
-}
+      // data to be sent to the POST request
 
-try {
-  const response = await fetch(`getAllNotes/${user_id}`, {
-    method: "GET",
-    headers: {
-      "Content-type": "application/json; charset=UTF-8"
+
+      try {
+        const response = await fetch(`deleteNotes/${notes_id}`, {
+          method: "DELETE",
+          headers: {
+            "Content-type": "application/json; charset=UTF-8"
+          }
+        });
+        const json = await response.json();
+        myToast('Note removed succesfully', 'success');
+      } catch (err) {
+        console.log(err);
+        $(document).Toasts('create', {
+          class: 'bg-danger',
+          title: 'Error',
+          subtitle: 'Failed',
+          body: 'Server ERROR. check console.'
+        });
+      }
+
     }
-  });
-  const json = await response.json();
-  $('#secNotes').html(``);
-  $('#secNotes').html(`<div ">
+
+    async function getAllNotes(user_id) {
+
+
+
+
+      // data to be sent to the POST request
+      let _data = {
+        name: $('#fullname').val(),
+        user_id: 3 // hard_coded
+      }
+
+      try {
+        const response = await fetch(`getAllNotes/${user_id}`, {
+          method: "GET",
+          headers: {
+            "Content-type": "application/json; charset=UTF-8"
+          }
+        });
+        const json = await response.json();
+        $('#secNotes').html(``);
+        $('#secNotes').html(`<div ">
 
 <div class="container-fluid">
 <div class="row">
@@ -517,20 +597,21 @@ try {
 </div>
 <!-- /.card-header -->
 <div class="card-body">
-  <table id="example1" class="table table-bordered table-striped">
+  <table  style="font-size:x-small" id="example1"  class="table table-bordered table-striped">
     <thead>
       <tr>
-        <th>Note ID</th>
+        <th> ID</th>
         <th>News ID</th>
         <th>User ID</th>
         <th>Note</th>
         <th>News Title</th>
         <th>URL</th>
         <th>Date</th>
+        <th>Action</th>
 
       </tr>
     </thead>
-    <tbody id="dtBoday">
+    <tbody id="dtBoday" >
 
 
 
@@ -549,97 +630,104 @@ try {
 
 `);
 
-  dataTable = $("#example1").DataTable({
- 
-    order: [[0, 'desc']],
-    "responsive": true,
-    "lengthChange": false,
-    "autoWidth": false,
-    "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
-   });
-  dataTable.buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        dataTable = $("#example1").DataTable({
+          
+          order: [
+            [0, 'desc']
+          ],
+          "responsive": true,
+          "lengthChange": false,
+          "autoWidth": false,
+          "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+        });
+        dataTable.buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
-  dataTable.columns([1,2]).visible(false);
-  json.forEach(row => {
+        dataTable.columns([1, 2]).visible(false);
+        json.forEach(row => {
 
-    var news_short=row.title.substring(0, 50)+'...';
-    dataTable.row.add([row.id, row.news_id, row.user_id, '<a  style="border: 5px solid #cfe0f1; margin-right: 0; background-color: white;"  class="direct-chat-text">' + row.notes + '</a>',`<a style='font-weight: 600;'> ${news_short.toUpperCase()} </a>`, '<a href=' + row.url + '>Open News</a>', row.createdAt]).draw();
-
-
-
-    // alert($('#folderList').html());
-  });
-
-
-
-
-} catch (err) {
-  console.log(err);
-  $(document).Toasts('create', {
-    class: 'bg-danger',
-    title: 'Error',
-    subtitle: 'Failed',
-    body: 'Server ERROR. check console.'
-  });
-}
-
-}
+          var news_short = row.title.substring(0, 50) + '...';
+          dataTable.row.add([
+            row.id,
+            row.news_id,
+            row.user_id,
+            '<div  style="border: 5px solid #cfe0f1; margin: 0; background-color: white;"  class="direct-chat-text">' + row.notes + '</a>',
+               `<a style='font-weight: 500;'> ${news_short.toUpperCase()} </div>`,
+            '<a href=' + row.url + '>Open News</a>',
+            getDateTimeFormate(row.createdAt),
+            '<a href="#"  style="font-size:small"  note_id="' + row.id + '"  news_id="'+ row.news_id+'" class="dtEditNote"><i class="fas fa-edit mr-1 "></i></a><a href="#"  style="font-size:small" note_id="' + row.id + '" class="dtDeleteNote"><i style="margin-left:10px" class="fas fa-trash mr-1 text-danger" ></a>'
+          ]).draw();
 
 
-async function getAnalytics(user_id) {
+        });
 
 
 
 
-// data to be sent to the POST request
-let _data = {
-  name: $('#fullname').val(),
-  user_id: 3 // hard_coded
-}
+      } catch (err) {
+        console.log(err);
+        $(document).Toasts('create', {
+          class: 'bg-danger',
+          title: 'Error',
+          subtitle: 'Failed',
+          body: 'Server ERROR. check console.'
+        });
+      }
 
-try {
-  const response = await fetch(`getAnalytics/${user_id}`, {
-    method: "GET",
-    headers: {
-      "Content-type": "application/json; charset=UTF-8"
     }
-  });
-  var jsons = await response.json();
-  jsons.forEach(json => {
-
-    $('#Acountries').html(json.county);
-    $('#Akeywords').html(json.keywords);
-    $('#Aopinions').html(json.opinion);
-    $('#Aregions').html(json.regions);
-    $('#Afolders').html(json.forlders);
-    $('#Asources').html(json.source);
-    $('#AsavedNews').html(json.savenews);
-    $('#Anotes').html(json.notes);
 
 
-  });
-
-  // alert($('#folderList').html());
+    async function getAnalytics(user_id) {
 
 
 
 
-} catch (err) {
-  console.log(err);
-  $(document).Toasts('create', {
-    class: 'bg-danger',
-    title: 'Error',
-    subtitle: 'Failed',
-    body: 'Server ERROR. check console.'
-  });
-}
+      // data to be sent to the POST request
+      let _data = {
+        name: $('#fullname').val(),
+        user_id: 3 // hard_coded
+      }
 
-}
+      try {
+        const response = await fetch(`getAnalytics/${user_id}`, {
+          method: "GET",
+          headers: {
+            "Content-type": "application/json; charset=UTF-8"
+          }
+        });
+        var jsons = await response.json();
+        jsons.forEach(json => {
+
+          $('#Acountries').html(json.county);
+          $('#Akeywords').html(json.keywords);
+          $('#Aopinions').html(json.opinion);
+          $('#Aregions').html(json.regions);
+          $('#Afolders').html(json.forlders);
+          $('#Asources').html(json.source);
+          $('#AsavedNews').html(json.savenews);
+          $('#Anotes').html(json.notes);
+
+
+        });
+
+        // alert($('#folderList').html());
 
 
 
 
-    
+      } catch (err) {
+        console.log(err);
+        $(document).Toasts('create', {
+          class: 'bg-danger',
+          title: 'Error',
+          subtitle: 'Failed',
+          body: 'Server ERROR. check console.'
+        });
+      }
+
+    }
+
+
+
 
     function myToast(message, type) {
       getAnalytics(3);
@@ -663,4 +751,12 @@ try {
         });
       }
     }
+    function getDateTimeFormate(str) {
+    var today = new Date(str);
+
+    var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    var dateTime = date + ' ' + time;
+    return dateTime;
+  }
   </script>
