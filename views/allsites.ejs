@@ -491,6 +491,8 @@
   function newsTemplate(news_id, source, pub_date, title, description, url, keywords, in_folder, notes_news) {
     var save_btn;
     var note_btn;
+    var note_btn_view="";
+
 
 
 
@@ -506,11 +508,12 @@
 
 
     if (notes_news == null)
-      note_btn = `     <a news_id="${news_id}" data-toggle="modal" data-target="#modelNotes" class="text-danger link-black text-sm mr-2 btnNotes" href="#"><i class="fas fa-sticky-note mr-1"></i>Notes Not Added</a>`;
+      note_btn = `     <a news_id="${news_id}"  class="text-danger link-black text-sm mr-2 btnNotesEdit" href="#"><i class="fas fa-sticky-note mr-1"></i>Notes Not Added</a>`;
 
     else {
 
-      note_btn = `     <a news_id="${news_id}" data-toggle="modal" data-target="#modelNotes" class="text-success link-black text-sm mr-2 btnNotes" href="#"><i class="fas fa-sticky-note mr-1" ></i>Notes</a>`;
+      note_btn_view = `     <a news_id="${news_id}" data-toggle="modal" data-target="#modelNotes" class="text-info link-black text-sm mr-2 btnNotes" href="#"><i class="fas fa-eye mr-1" ></i>View Note</a>`;
+      note_btn = `     <a news_id="${news_id}"  class="text-success link-black text-sm mr-2 btnNotesEdit" href="#"><i class="fas fa-sticky-note mr-1" ></i>Edit Note</a>`;
 
     }
 
@@ -567,8 +570,11 @@
                     <p style='margin:0;font-weight: 600;'>
                      ${save_btn}
                       <span class="float-right">
+                        ${note_btn_view}
                         ${note_btn}
-                        <a href=' ${url}' class="link-black text-sm"><i class="far fa-folder-open mr-1"></i> Open</a>
+                    
+
+                        <a news_id="${news_id}" class="link-black text-sm openNews"><i class="far fa-folder-open mr-1 "></i> Open</a>
                 
 
                       </span>

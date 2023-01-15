@@ -41,7 +41,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1>Note Editor</h1>
+              <h1>News</h1>
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
@@ -57,7 +57,7 @@
       <section class="row content">
 
         <!-- Default box -->
-        <div id="news_part" class="col-md-6" class="col-md-6">
+        <div id="news_part" class="col-md-12" class="col-md-6">
 
 
 
@@ -65,33 +65,6 @@
 
 
 
-        <div id="notes_part" class="col-md-6" class="col-md-6">
-
-
-
-          <div class="col-md-12">
-            <div class="card card-outline card-info">
-              <div class="card-header">
-                <h3 class="card-title">
-                  Write Your Note
-                </h3>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-                <textarea id="summernote">
-                      Place <em>some</em> <u>text</u> <strong>here</strong>
-                    </textarea>
-              </div>
-              <div class="card-footer">
-                <button id="saveNote" type="button" class="btn btn-info  btn-small btn-flat float-right"><i class="fa fa-save"></i> Save</button>
-                <button id="showNote" type="button" style="margin-right:5px" class="btn btn-danger  btn-small float-right "><i class="fa fa-trash"></i> Delete</button>
-
-              </div>
-            </div>
-          </div>
-
-
-        </div>
 
     </div>
     <!-- /.col -->
@@ -154,50 +127,16 @@
     row = row[0];
     var date = new Date(row.pub_date);
     date = date.toDateString();
-    var news = newsTemplate(row.news_id, row.source, date, row.title.toUpperCase(), row.description, row.url, row.key_words.replace(',', ' | '), row.in_folder, row.notes_news, row.body, row.note_id);
+    var news = newsTemplate(row.news_id, row.source, date, row.title.toUpperCase(), row.description, row.url, row.key_words.replace(',', ' | '), row.in_folder, row.notes_news, row.body, row.note_id,row.media);
     // console.log(news);
     $('#news_part').append(news);
 
-    $('#summernote').summernote('code', row.notes_news);
 
 
 
-    $('#saveNote').click(function() {
+  });
 
-
-      addNotes(row.news_id, 3, $('#summernote').summernote('code'));
-
-
-    });
-
-
-    $("body").on('click', '.btnCopyNote', function() {
-
-      $('#summernote').summernote('code','<b>'+ row.title.toUpperCase() +'</b><p></p>'+row.body);
-
-    });
-
-    $('#showNote').click(function() {
-
-      deleteNote(row.note_id); //  
-
-    });
-    // Summernote
-    $('#summernote').summernote({
-      minHeight: 200
-    })
-
-    // CodeMirror
-    CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
-      mode: "htmlmixed",
-      theme: "monokai"
-    });
-  })
-
-
-
-
-  function newsTemplate(news_id, source, pub_date, title, description, url, keywords, in_folder, notes_news, body, note_id) {
+  function newsTemplate(news_id, source, pub_date, title, description, url, keywords, in_folder, notes_news, body, note_id, media) {
     var save_btn;
     var note_btn;
 
@@ -243,6 +182,7 @@
           </div>
 
 
+
           <div style="margin-left: 0;    margin-bottom: 0px;" class="row">
                       <!-- <img class="img-circle img-bordered-sm" src="../../dist/img/user1-128x128.jpg" alt="user image"> -->
                       <span style="margin-left: 0;" class="username user-block">
@@ -269,17 +209,25 @@
                 <div class="tab-pane active" id="activity">
                   <!-- Post -->
                   <div class="post">
-               
+                    <div class="row">
 
+                      <div class="col-sm-9 col-md-9">
                     <h6 style="    font-size: 18px;;">
                       ${body}
                     </h6>
 
-                    <p style='margin:0;font-weight: 600;'>
+                 
+                  </div>
+
+
+                  <div class="col-sm-3 col-md-3">
+                          <img class="img-fluid" src="${media}" alt="Photo">
+                        </div>
+  </div>
+  <p style='margin:0;font-weight: 600;'>
                      ${save_btn}
 
                       <span class="float-right">
-                        ${note_btn}
 
                         <a href=' ${url}' class="link-black text-sm"><i class="far fa-folder-open mr-1"></i> Open</a>
                 
@@ -289,7 +237,7 @@
                     <p style='margin:0;font-weight: 600; font-size:small'>
                     <a href="#" class="float-left text-info">Keywords: ${keywords}</a>
 </p>
-                  </div>
+</div>
                   <!-- /.post -->
 
 
@@ -306,95 +254,15 @@
 
           <!-- /.col -->
         </div>
-       
+         
+
+<div>
+ 
+
+
         `;
 
     return myNews;
-
-  }
-
-  async function addNotes(news_id, user_id, notes) {
-    // data to be sent to the POST request
-    let _data = {
-      news_id: news_id,
-      user_id: user_id, // hard_coded
-      notes: notes
-    }
-
-    try {
-      const response = await fetch('/notes/addNotes', {
-        method: "POST",
-        body: JSON.stringify(_data),
-        headers: {
-          "Content-type": "application/json; charset=UTF-8"
-        }
-      });
-
-      myToast('Notes added successfully', 'success');
-      const json = await response.json();
-      //    return json;
-
-
-      var listItem = `               
-                <div class="direct-chat-msg right">
-                  <div class="direct-chat-infos clearfix">
-                    <button notes_id="${json.id}" type="button" class="close deleteNote"  aria-label="Close">
-                      <span aria-hidden="true">×</span>
-                    </button>
-                    <span class="direct-chat-timestamp float-left">${json.createdAt}</span>
-                  </div>
-           
-                  <div class="direct-chat-text">
-                    ${json.notes}
-                  </div>
-                </div>
-          
-            `;
-
-
-      $('#notesBlock').append(listItem);
-
-      //  myToast('Note added succesfully', 'success');
-
-
-
-      return json;
-      // dataTable.row.add([json.id, json.name, json.role, json.createdAt]).draw(false);
-    } catch (err) {
-      console.log(err);
-      myToast('Check Console', 'error');
-
-    }
-  }
-
-
-
-  async function deleteNote(notes_id) {
-
-
-
-
-    // data to be sent to the POST request
-
-
-    try {
-      const response = await fetch(`deleteNotes/${notes_id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-type": "application/json; charset=UTF-8"
-        }
-      });
-      const json = await response.json();
-      myToast('Note removed succesfully', 'success');
-    } catch (err) {
-      console.log(err);
-      $(document).Toasts('create', {
-        class: 'bg-danger',
-        title: 'Error',
-        subtitle: 'Failed',
-        body: 'Server ERROR. check console.'
-      });
-    }
 
   }
 
