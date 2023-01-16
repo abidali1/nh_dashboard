@@ -184,18 +184,14 @@
     });
 
     $('#showNote').click(function() {
+      if (confirm("Are you sure you want to delete this note?")) {
 
       deleteNote(row.note_id); //  
-
+      }
     });
-    // Summernote
 
-    // CodeMirror
-    CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
-      mode: "htmlmixed",
-      theme: "monokai"
-    });
-  })
+
+  });
 
 
 
@@ -379,6 +375,7 @@
       });
       const json = await response.json();
       myToast('Note removed succesfully', 'success');
+      $('#summernote').summernote('code','');
     } catch (err) {
       console.log(err);
       $(document).Toasts('create', {
@@ -415,5 +412,9 @@
 
   }
 
+  function yesNoDialog(message) {
+      if (confirm(message)) return true;
+      else return false;
+    }
  
 </script>

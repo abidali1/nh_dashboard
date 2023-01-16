@@ -52,6 +52,14 @@ router.post('/folder/add', async (req, res) => {
     res.send(result);
 });
 
+router.delete('/folder/:folder_id', async (req, res) => {
+    try {
+        await db.news_folder.destroy({ where: { folder_id: req.params.folder_id } });
+        const result = await db.folder.destroy({ where: { id: req.params.folder_id } });
+        res.send(result + '');
+
+    } catch (err) { console.log(err); res.send(err) }
+});
 
 
 
@@ -75,10 +83,10 @@ router.delete('/deleteNotes/:notes_id', async (req, res) => {
 
 router.get('/folder/:id', async (req, res) => {
 
- //   const result = await db.folder.findAll({ where: { user_id: req.params.id } });
+    //   const result = await db.folder.findAll({ where: { user_id: req.params.id } });
 
-        const result= await query(`select folders.id,name, count(news_id) news from folders left join news_folders on folders.id=news_folders.folder_id
-        where folders.user_id=${req.params.id }
+    const result = await query(`select folders.id,name, count(news_id) news from folders left join news_folders on folders.id=news_folders.folder_id
+        where folders.user_id=${req.params.id}
         group by id,name`);
     res.send(result);
 });
@@ -88,23 +96,23 @@ router.get('/folder/:id', async (req, res) => {
 router.get('/getNotes/:user_id!:news_id', async (req, res) => {
 
     //   const result = await db.folder.findAll({ where: { user_id: req.params.id } });
-   
-           const result= await query(`select * from notes where user_id=${req.params.user_id } and news_id=${req.params.news_id }`);
-       res.send(result);
-   });
-   
-   
-   router.get('/getAllNotes/:user_id', async (req, res) => {
+
+    const result = await query(`select * from notes where user_id=${req.params.user_id} and news_id=${req.params.news_id}`);
+    res.send(result);
+});
+
+
+router.get('/getAllNotes/:user_id', async (req, res) => {
 
     //   const result = await db.folder.findAll({ where: { user_id: req.params.id } });
-   
-           const result= await query(`select notes.id,news.id news_id,user_id,notes,title,url,createdAt from notes  left join news 
+
+    const result = await query(`select notes.id,news.id news_id,user_id,notes,title,url,createdAt from notes  left join news 
            on notes.news_id=news.id 
-           where user_id=${req.params.user_id }
+           where user_id=${req.params.user_id}
            order by notes.id desc `);
-       res.send(result);
-   });
-   
+    res.send(result);
+});
+
 
 
 // Function -- will be moved to controllers
@@ -113,8 +121,8 @@ router.get('/getNotes/:user_id!:news_id', async (req, res) => {
 router.get('/getAnalytics/:user_id', async (req, res) => {
 
     //   const result = await db.folder.findAll({ where: { user_id: req.params.id } });
-   
-           const result= await query(`
+
+    const result = await query(`
            select 
            (select count(*)  from user_country where user_id=${req.params.user_id}) county ,
            (select count(*)  from user_keywords  where user_id=${req.params.user_id}) keywords,
@@ -124,21 +132,21 @@ router.get('/getAnalytics/:user_id', async (req, res) => {
            (select count(*)  from  folders where user_id=${req.params.user_id}) forlders,
            (select count(*)  from news_folders  where user_id=${req.params.user_id}) savenews,           
            (select count(*)  from notes  where user_id=${req.params.user_id}) notes`);
-       res.send(result);
-   });
-   
-   
-   router.get('/getAllNotes/:user_id', async (req, res) => {
+    res.send(result);
+});
+
+
+router.get('/getAllNotes/:user_id', async (req, res) => {
 
     //   const result = await db.folder.findAll({ where: { user_id: req.params.id } });
-   
-           const result= await query(`select notes.id,news.id news_id,user_id,notes,title,url,createdAt from notes  left join news 
+
+    const result = await query(`select notes.id,news.id news_id,user_id,notes,title,url,createdAt from notes  left join news 
            on notes.news_id=news.id 
-           where user_id=${req.params.user_id }
+           where user_id=${req.params.user_id}
            order by notes.id desc `);
-       res.send(result);
-   });
-   
+    res.send(result);
+});
+
 
 
 
@@ -166,16 +174,17 @@ async function addFolderNews(req, res) {
     //     }
 
 
-     try {
+    try {
 
-             await   db.news_folder.destroy({ where: { user_id: user_id,  news_id: news_id } })
-           
+       const del = await db.news_folder.destroy({ where: { user_id: user_id, news_id: news_id } })
 
-            const result = await db.news_folder.create({ user_id: user_id, folder_id: folder_id, news_id: news_id });
-            return result;
-       
-            
-        
+        if(folder_id!="0"){
+        const result = await db.news_folder.create({ user_id: user_id, folder_id: folder_id, news_id: news_id });
+        return result;
+        }
+        else return del+"";
+
+
     } catch (err) {
         console.log(err);
         res.send(err);
@@ -191,12 +200,12 @@ async function addNotes(req, res) {
     const { user_id } = req.body;
     const { notes } = req.body;
 
-     try {
+    try {
 
-      //      db.news_folder.destroy({ where: { user_id: user_id,  news_id: news_id } })           
-            const result = await db.notes.create({ user_id: user_id, news_id: news_id, notes: notes });
-            return result;            
-        
+        //      db.news_folder.destroy({ where: { user_id: user_id,  news_id: news_id } })           
+        const result = await db.notes.create({ user_id: user_id, news_id: news_id, notes: notes });
+        return result;
+
     } catch (err) {
         console.log(err);
         res.send(err);
@@ -204,11 +213,11 @@ async function addNotes(req, res) {
 }
 async function deleteNotes(req, res) {
 
-     try {
+    try {
 
-           const result= await db.notes.destroy({ where: { id: req.params.notes_id } })    ;   
-            return result+'';            
-        
+        const result = await db.notes.destroy({ where: { id: req.params.notes_id } });
+        return result + '';
+
     } catch (err) {
         console.log(err);
         res.send(err);
@@ -298,7 +307,7 @@ function newsQuery(params) {
 
 
 
-   // return `select news_id,title,description,url,n.pub_date, source, user_id,group_concat(word) key_words from (
+    // return `select news_id,title,description,url,n.pub_date, source, user_id,group_concat(word) key_words from (
     return `select kn.news_id,title,description,url,n.pub_date, source, a.user_id,group_concat(word) key_words,news_folders.folder_id in_folder,group_concat( note.news_id ) notes_news from (
   
    select   k.id,user_id, k.word  from user_keywords    uk  
@@ -320,8 +329,8 @@ function newsQuery(params) {
          limit ${skip},${limit}
       )  kn  on kn.keyword_id= a.id 
         inner join news n on kn.news_id=n.id
-        left join news_folders on n.id=news_folders.news_id and news_folders.user_id=   ${params.user_id } 
-        left join (select distinct user_id, news_id from notes) note on n.id=note.news_id and note.user_id=   ${params.user_id } 
+        left join news_folders on n.id=news_folders.news_id and news_folders.user_id=   ${params.user_id} 
+        left join (select distinct user_id, news_id from notes) note on n.id=note.news_id and note.user_id=   ${params.user_id} 
          where 1=1 
          ${folder_id}
          ${country} ${source_id} 
