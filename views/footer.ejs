@@ -74,6 +74,7 @@
             const json = await response.json();
             myToast('Folder removed succesfully', 'success');
             $(this).parent().parent().fadeOut();
+            getFolderList();
           } catch (err) {
             console.log(err);
             myToast('something went wrong. Console', 'error');
@@ -109,12 +110,7 @@
 
 
 
-          $('#folderList').html(` <li class="nav-item">
-                  <a id="addRemoveFolder" data-toggle="modal" data-target="#exampleModal" class="nav-link">
-                    <i class="far fa-plus-square nav-icon"></i>
-                    <p>Add remove folder</p>
-                  </a>
-                </li>`);
+    
           getFolderList();
         });
 
@@ -280,6 +276,15 @@
         });
 
         const json = await response.json();
+
+        $('#folderList').html(` <li class="nav-item">
+                  <a id="addRemoveFolder" data-toggle="modal" data-target="#exampleModal" class="nav-link">
+                    <i class="far fa-plus-square nav-icon"></i>
+                    <p>Add remove folder</p>
+                  </a>
+                </li>`);
+
+
         //  console.log(json);
         json.forEach(row => {
           var listItem = ` <li class="nav-item">
