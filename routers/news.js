@@ -281,7 +281,6 @@ function newsQuery(params) {
 
 
 
-    // return `select news_id,title,description,url,n.pub_date, source, user_id,group_concat(word) key_words from (
     return `
 -- Start Query --
     select kn.news_id,title,description,url,n.pub_date, source, a.user_id,group_concat(word) key_words,news_folders.folder_id in_folder,group_concat( note.news_id ) notes_news from (

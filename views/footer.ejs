@@ -51,7 +51,7 @@
       getFolderList();
       $('#userForm').submit(function() {
 
-        addFolder();
+        addFolder().then( () => getFolderList());
         return false;
       });
 
