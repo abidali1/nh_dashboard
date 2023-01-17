@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Newshunt | Dashboard</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="assets/plugins/fontawesome-free/css/all.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="assets/dist/css/adminlte.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="assets\docs\assets\css\icheck-material.min.css">
+  <link rel="stylesheet" href="assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+  <link rel="stylesheet" href="assets/build/mycss.css">
+
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <!-- Site wrapper -->
+  <div class="wrapper">
+    <!-- Navbar -->
+
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+      <!-- Brand Logo -->
+      <a href="assets/index3.html" class="brand-link">
+        <img src="assets/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-light">Dashboard</span>
+      </a>
+
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <!-- Sidebar user (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+          <div class="image">
+            <img src="assets/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+          </div>
+          <div class="info">
+            <a href="#" class="d-block">Muhammad Salman</a>
+          </div>
+        </div>
+
+        <!-- SidebarSearch Form -->
+
+
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+
+
+
+
+
+            <li class="nav-item">
+              <a href="#" class="nav-link">Select Time Period
+                <select id="timePeriod" class="form-control form-control-sidebar">
+
+                  <option value="0">All</option>
+                  <option value="today">Today</option>
+                  <option value="week">Past Week</option>
+                  <option value="month">Past Month</option>
+                  <option class="nav-item" value="specific">Specific Dates</option>
+
+
+                </select>
+              </a>
+
+            </li>
+
+
+
+
+            <div id="specificDates" style="display:none">
+              <li class="nav-item">
+                <a href="#" class="nav-link">From
+                  <input id="startdate" class="form-control form-control-sidebar" type="date">
+
+                </a>
+
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">To
+                  <input id="enddate" class="form-control form-control-sidebar" type="date">
+
+                </a>
+
+              </li>
+
+
+
+            </div>
+
+
+
+            <li class="nav-item">
+              <a href="#" class="nav-link">Select Country
+                <select id="newsCountries" class="form-control form-control-sidebar">
+
+                  <option value="0">All</option>
+                </select>
+              </a>
+
+            </li>
+
+
+            <li class="nav-item">
+              <a href="#" class="nav-link">Select Source
+                <select id="newsSources" class="form-control form-control-sidebar">
+
+                  <option value="0">All</option>
+
+                </select>
+              </a>
+
+            </li>
+
+
+            <li style="margin-top: 20px;" class="nav-item">
+              <a id="navFolders" href="#" class="nav-link">
+                <i class="nav-icon fas  fa-folder"></i>
+                <p>
+                  My Folders
+                  <i class="fas fa-angle-left right"></i>
+
+                </p>
+              </a>
+              <ul id='folderList' class=" nav-treeview">
+
+              </ul>
+
+
+
+            <li style="text-align: center;" class="nav-item">
+              <a id="datesbutton" href="#" class="nav-link">
+                <i class="fa fa-arrow-circle-right text-info" style="font-size:28px"></i>
+
+                <p>
+
+
+                </p>
+              </a>
+            </li>
+          </ul>
+          </li>
+
+          </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+      </div>
+      <!-- /.sidebar -->
+    </aside>
+
+
+
+
+
+    <div class="content-wrapper" style="min-height: 2488.31px;">
+
+
+
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1>
+                Reports
+                <small>Filters</small>
+              </h1>
+            </div>
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active">Modals &amp; Alerts</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="secAnalytics" style="display: none;     padding-top: 0; padding-bottom: 0;" class="content-header">
+
+        <div class="row">
+          <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box">
+              <span class="info-box-icon bg-info"><i class="far fa-flag"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Countires</span>
+                <span id="Acountries" class="info-box-number">0</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box">
+              <span class="info-box-icon bg-success"><i class="fas fa-hashtag"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Keywords</span>
+                <span id="Akeywords" class="info-box-number">0</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box">
+              <span class="info-box-icon bg-warning"><i class="fas fa-quote-right"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Opinions</span>
+                <span id="Aopinions" class="info-box-number">0</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box">
+              <span class="info-box-icon bg-danger"><i class="fas fa-map-marked-alt"></i></span>
+              <div class="info-box-content">
+                <span class="info-box-text">Regions</span>
+                <span id="Aregions" class="info-box-number">0</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+          </div>
+
+          <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box">
+              <span class="info-box-icon bg-info"><i class="far fa-folder"></i></span>
+              <div class="info-box-content">
+                <span class="info-box-text">Folders</span>
+                <span id="Afolders" class="info-box-number">0</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+
+          <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box">
+              <span class="info-box-icon bg-success"><i class="fas fa-cog"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Sources</span>
+                <span id="Asources" class="info-box-number">0</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+          <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box">
+              <span class="info-box-icon bg-warning"><i class="far fa-save"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Saved News</span>
+                <span id="AsavedNews" class="info-box-number">0</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+          <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box">
+              <span class="info-box-icon bg-danger"><i class="far fa-sticky-note"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Notes</span>
+                <span id="Anotes" class="info-box-number">0</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+        </div>
+        <!-- /.col -->
+
+
+
+
+      </section>
+
+      <section id="secNotes" style="display: none;" class="content-header"></section>
+
+      <!-- Main content -->
+      <section class="content">
+        <div class="container-fluid">
+
+          <div class="row">
+            <!-- /.Keywords -->
+
+            <div style="display:none" class="col-md-12" id="sec_keywords">
+              <div class="col-md-12">
+                <div class="card card-primary card-outline">
+                  <div class="card-header">
+                    <h3 class="card-title">Keywords</h3>
+
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                        <i class="fas fa-minus"></i>
+                      </button>
+                      <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                        <i class="fas fa-times"></i>
+                      </button>
+                    </div>
+                  </div>
+
+
+
+
+                  <div id="myKW" style="display: none;"><% keywords %> </div>
+                  <div id="mySources" style="display: none;"><%= sources %> </div>
+                  <div id="myCountries" style="display: none;"><%= countries %> </div>
+
+
+
+                  <div class="card-body" id="accordion">
+                    <%   var cat; keywords1=JSON.parse(keywords); keywords1.forEach((row) => { if (cat==row.name) {  %>
+
+                    <% } else { cat=row.name; %>
+
+                    <button style="    margin-bottom: 5px;margin-right: 3px;" type="button" attr="<%= row.cat_id %>" class="btn bg-gradient-secondary" data-toggle="collapse" data-target=".<%= row.name.replace(' ','_') %>" aria-expanded="false" aria-controls="collapseExample">
+                      <%= row.name.toUpperCase() %>
+                    </button>
+
+
+                    <%   }}); %>
+                  </div>
+
+
+
+
+
+                  <%   var cat1; keywords=JSON.parse(keywords); keywords.forEach((row) => { if (cat1==row.name) {  %>
+                  <button type="button" attr="<%= row.keyword_id %>" class="KW btn btn-default" data-toggle="modal" data-target="#modal-default">
+                    <%= row.word %>
+                  </button>
+                  <% } else { cat1=row.name; %>
+
+                </div>
+              </div>
+
+
+              <div class="collapse data-parent='#accordion' <%= row.name.replace(' ','_')   %>">
+                <div class="card-body">
+                  <button type="button" attr="<%= row.cat_id %>" class="KW_Cat btn bg-gradient-secondary" data-toggle="collapse" data-target=".<%= row.name %>" aria-expanded="false" aria-controls="collapseExample">
+                    All
+                  </button>
+
+                  <button type="button" attr="<%= row.keyword_id %>" class="KW btn btn-default" data-toggle="modal" data-target="#modal-default">
+                    <%= row.word %>
+                  </button>
+
+                  <%   }}); %>
+                  <!-- /.card -->
+                </div>
+
+
+              </div>
+            </div>
+            <!-- jQuery -->
+
+
+            <div id="newsBlock" class="col-md-12">
+
+
+
+
+            </div><!-- /.container-fluid -->
+          </div>
+        </div>
+        <div style='text-align: center;margin:auto;width: 50%;' class="card"><button style="border:1px" id='loadMore'>Please select filters and click green arrow icon...</button></div>
+
+      </section>
+      <!-- /.content -->
+    </div>
+
+
+  </div>
+
+  <footer class="main-footer">
+    <div class="float-right d-none d-sm-block">
+      <b>Version</b> 1.0.0
+    </div>
+    <strong>Copyright &copy; 2023 <a href="#">newshunt</a>.</strong> All rights reserved.
+  </footer>
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+  </div>
+  <!-- ./wrapper -->
+
+  <!-- jQuery -->
+  <script src="assets/plugins/jquery/jquery.min.js"></script>
+  <!-- Bootstrap 4 -->
+  <script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="assets/dist/js/adminlte.min.js"></script>
+  <!-- AdminLTE for demo purposes -->
+  <script src="assets/dist/js/demo.js"></script>
+
+  <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
+  <script src="assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+  <script src="assets/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+  <script src="assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+  <script src="assets/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+  <script src="assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+
+  <!-- HEAVY LOADING TIME -->
+  <!-- <script src="assets/plugins/jszip/jszip.min.js"></script>
+  <script src="assets/plugins/pdfmake/pdfmake.min.js"></script>
+  <script src="assets/plugins/pdfmake/vfs_fonts.js"></script> -->
+  <script src="assets/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+  <script src="assets/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+  <script src="assets/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+</body>
+
+</html>
+
+
+<script>
+  var user_id = '3';
+  var keyword_id = '0';
+  var keyword_cat_id = '0';
+  var start_date = '0';
+  var end_date = '0';
+  var country = '0';
+  var source_id = '0';
+  var folder_id = [];
+  var limit = 20;
+  var skip = 0;
+
+
+  function reset_param() {
+    keyword_id = '0';
+    keyword_cat_id = '0';
+    start_date = '0';
+    end_date = '0';
+    country = $('#newsCountries').val();
+    source_id = $('#newsSources').val();
+    folder_id = '0';
+
+    limit = 20;
+    skip = 0;
+  }
+
+
+  function concat_param() {
+    return user_id + '!' + keyword_id + '!' + keyword_cat_id + '!' + start_date + '!' + end_date + '!' + country + '!' + source_id + '!' + folder_id + '!' + limit + '!' + skip;
+  }
+
+  function load_Countries_Sources() {
+    const country = JSON.parse($('#myCountries').html());
+    const source = JSON.parse($('#mySources').html());
+
+    country.forEach(row => {
+      $('#newsCountries').append($('<option/>', {
+        value: row.name,
+        text: row.name
+      }));
+    })
+
+
+    source.forEach(row => {
+      $('#newsSources').append($('<option/>', {
+        value: row.id,
+        text: row.source
+      }));
+    })
+
+  }
+
+
+
+
+  $(function() {
+    load_Countries_Sources();
+    //  loadNewsFromNavBarFileters();
+    $('.KW').on('click', function() {
+      $('#newsBlock').html('');
+      skip = 0;
+      keyword_cat_id = '0';
+      keyword_id = $(this).attr('attr');
+      loadNewsFromNavBarFileters();
+
+    });
+
+    $('.KW_Cat').on('click', function() {
+      $('#newsBlock').html('');
+      keyword_id = '0';
+      keyword_cat_id = $(this).attr('attr');
+      loadNewsFromNavBarFileters();
+    });
+
+
+
+
+    $('#datesbutton').on('click', function() {
+
+      $('#newsBlock').html('');
+
+
+      if ($('#timePeriod').val() == '0') {
+        start_date = '0';
+        end_date = '0';
+      }
+
+
+      if ($('#timePeriod').val() == 'today') {
+        var date = new Date();
+        date.setDate(date.getDate());
+        var dateString = date.toISOString().split('T')[0]; // "2016-06-08"
+        start_date = end_date = dateString;
+      }
+
+      if ($('#timePeriod').val() == 'week') {
+        var date = new Date();
+        end_date = date.toISOString().split('T')[0];
+        date.setDate(date.getDate() - 7);
+        start_date = date.toISOString().split('T')[0];
+      }
+
+      if ($('#timePeriod').val() == 'month') {
+        var date = new Date();
+        end_date = date.toISOString().split('T')[0];
+        date.setDate(date.getDate() - 30);
+        start_date = date.toISOString().split('T')[0];
+      }
+
+      if ($('#timePeriod').val() == 'specific') {
+        if ($('#startdate').val() == '' || $('#enddate').val() == '') {
+
+          $('#loadMore').html('No Data Available');
+
+          myToast('Please select valid filters and try again.', 'error');
+          return;
+        }
+        start_date = $('#startdate').val();
+        end_date = $('#enddate').val();
+
+      }
+
+      country = $('#newsCountries').val();
+      source_id = $('#newsSources').val();
+      // Folder Array updated on each check box click event no need to set that here.
+      if (folder_id.length == 0) {
+        myToast("Please select at least one folder", "error");
+        return;
+      }
+
+      skip=0;
+      loadNewsFromNavBarFileters();
+
+
+
+
+    });
+
+
+
+
+    $('#loadMore').on('click', function() {
+
+//if(skip==0){return;}
+      //      alert(`limit: ${limit}     Skip:${skip} `);
+
+     if( $('#loadMore').html()=='Please select filters and click green arrow icon...')
+     return;
+     else{
+      skip = skip + 20;
+      loadNewsFromNavBarFileters();
+    }
+
+    });
+
+
+
+
+    $('body').on('click', '.checkFolders', function() {
+
+      if (this.checked) folder_id.push($(this).attr('id'));
+      else {
+        // folder_id.pop($(this).attr('id'));
+        const index = folder_id.indexOf($(this).attr('id'));
+        if (index > -1) { // only splice array when item is found
+          folder_id.splice(index, 1); // 2nd parameter means remove one item only
+        }
+      }
+      // alert(folder_id);
+
+    });
+
+
+  });
+
+
+
+
+  // }
+
+
+  async function loadNewsFromNavBarFileters() {
+    // data to be sent to the POST request
+
+
+   // $('#secAnalytics').hide();
+    $('#newsBlock').show();
+   // $('#secNotes').hide();
+   // $('#sec_keywords').show();
+    $('#loadMore').show();
+
+
+    try {
+      const response = await fetch(`reportfilter/filter/` + concat_param(), {
+        method: "Get",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+        }
+      });
+
+      const json = await response.json();
+      //   console.log(json);
+      if (Object.keys(json).length == 0)
+        $('#loadMore').html('No more data available');
+      else
+        $('#loadMore').html('Load More');
+      // $('#newsBlock').html('');
+      json.forEach(row => {
+        var date = new Date(row.pub_date);
+        date = date.toDateString();
+        var news = newsTemplate(row.news_id, row.source, date, row.title.toUpperCase(), row.description, row.url, row.key_words.replace(',', ' | '), row.in_folder, row.notes_news);
+        // console.log(news);
+        $('#newsBlock').append(news);
+
+      });
+    } catch (err) {
+      console.log(err);
+      myToast("please select all valid filters", "error");
+      return err;
+    }
+
+  }
+
+
+
+
+  function newsTemplate(news_id, source, pub_date, title, description, url, keywords, in_folder, notes_news) {
+    var save_btn;
+    var note_btn;
+    var note_btn_view = "";
+
+
+
+
+    //alert(in_folder);
+    if (in_folder == null)
+      save_btn = `<a news_id="${news_id}" data-toggle="modal" data-target="#addToFolderModel" class="link-black text-sm mr-2 saveBTN" href="#"><i class="fas fa-save mr-1"></i>Not Saved</a>`;
+    else {
+      var folder_name = document.querySelector(`[folder_id="${in_folder}"]`);
+      folder_name = $(folder_name).find('p').html();
+      save_btn = `<a news_id="${news_id}" folder_id="${in_folder}" data-toggle="modal" data-target="#addToFolderModel" class=" text-success link-black text-sm mr-2 saveBTN" href="#"><i class="fas fa-save mr-1"></i> SAVED (<i class="nav-icon fas  fa-folder"></i> ${folder_name})</a>`;
+    }
+
+
+    if (notes_news == null)
+      note_btn = `     <a news_id="${news_id}"  class="text-danger link-black text-sm mr-2 btnNotesEdit" href="#"><i class="fas fa-sticky-note mr-1"></i>Notes Not Added</a>`;
+
+    else {
+
+      note_btn_view = `   `;
+      note_btn = `     <a news_id="${news_id}"  class="text-success link-black text-sm mr-2 btnNotesEdit" href="#"><i class="fas fa-sticky-note mr-1" ></i>Notes</a>`;
+
+    }
+
+    var myNews = `   <div class="col-md-12">
+         
+                      
+  
+  
+            <div class="card">
+             
+  
+              <div class="card-header" style='    background-color: #e6edf4;'>
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                <i class="fas fa-minus"></i>
+              </button>
+              <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+  
+  
+            <div style="margin-left: 0;    margin-bottom: 0px;" class="row">
+                        <!-- <img class="img-circle img-bordered-sm" src="../../dist/img/user1-128x128.jpg" alt="user image"> -->
+                        <span style="margin-left: 0;display: inline-flex;" class="username user-block">
+                         
+                          <div style=" margin-top: 0px !important; margin-bottom: 0px !important;" class="icheck-material-cyan">
+                      <input type='checkbox' news_id="${news_id}" class="right checkFolders" id="check_${news_id}"/>
+                      <label for="check_${news_id}"></label> </div>
+
+                          <a class=" float-left " style='font-size:18px;line-height: 23px'   href="#">   ${source}</a>
+                          
+  
+                          <a style="margin-top: 4px;margin-left: 5px;" class="description float-left ">${pub_date}</a>
+  
+  
+                        </span>
+                      </div>
+  
+                    <div  class="row" style='margin-left:0;' >  
+                  <h5  style='font-size:18px; color:#6c757d;font-weight: 600; font-size: 1.25rem;margin-bottom:0px'>${title}</h5>
+  
+                </div>
+     
+  
+          </div>
+  
+  
+              <div class="card-body">
+                <div class="tab-content">
+                  <div class="tab-pane active" id="activity">
+                    <!-- Post -->
+                    <div class="post">
+                     
+                      <h6 style="    font-size: 18px;;">
+                        ${description}
+                      </h6>
+  
+                      <p style='margin:0;font-weight: 600;'>
+                       ${save_btn}
+                        <span class="float-right">
+                          ${note_btn_view}
+                          ${note_btn}
+                      
+  
+                          <a news_id="${news_id}" class="link-black text-sm openNews"><i class="far fa-folder-open mr-1 "></i> Open</a>
+                  
+  
+                        </span>
+                      </p>
+                      <p style='margin:0;font-weight: 600; font-size:small'>
+                      <a href="#" class="float-left text-info">Keywords: ${keywords}</a>
+  </p>
+                    </div>
+                    <!-- /.post -->
+  
+  
+  
+                    <!-- /.tab-pane -->
+  
+                    <!-- /.tab-pane -->
+                  </div>
+                  <!-- /.tab-content -->
+                </div><!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+            </div>
+  
+            <!-- /.col -->
+          </div>
+         
+          `;
+
+    return myNews;
+
+  }
+
+
+
+
+  // FOTTTTTTTTTTTTTTTTTTTTTTTTTTERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
+</script>
+
+
+<script>
+  var notesBTN;
+  $(function() {
+
+    $('#timePeriod').on('change', () => {
+
+      if ($('#timePeriod').val() == 'specific') $('#specificDates').slideDown();
+      else $('#specificDates').slideUp();
+    });
+
+    //  alert();
+    // to be send to a new branch name abid
+
+    // only for abid
+    getFolderList();
+
+
+    $("body").on('click', '.btnNotesEdit', function() {
+      window.open("/notes/" + 3 + "!" + $(this).attr('news_id'), "_blank");
+    });
+
+    $("body").on('click', '.openNews', function() {
+      window.open("/singleNews/" + 3 + "!" + $(this).attr('news_id'), "_blank");
+    });
+
+
+    $('#navFolders').click();
+
+  });
+
+
+
+
+  async function getFolderList() {
+
+    try {
+      const response = await fetch('news/folder/3', {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+        }
+      });
+
+      const json = await response.json();
+
+      $('#folderList').html(` `);
+
+
+      //  console.log(json);
+      json.forEach(row => {
+        var listItem = ` <li class="nav-item">
+                  <a  folder_id="${row.id}" class=" nav_folders nav-link">
+                      <span class="badge badge-info right">${row.news}</span>
+                     <div style="     margin-top: 0px !important;    margin-bottom: 0px !important;" class="icheck-material-cyan">
+                      <input type='checkbox' class="right checkFolders" id="${row.id}"/>
+                      <label for="${row.id}">${row.name}</label>
+                      </div>
+                  </a>
+                </li>`;
+
+
+        $('#folderList').append(listItem);
+
+        // alert($('#folderList').html());
+      });
+
+
+
+
+    } catch (err) {
+      console.log(err);
+      $(document).Toasts('create', {
+        class: 'bg-danger',
+        title: 'Error',
+        subtitle: 'Failed',
+        body: 'Server ERROR. check console.'
+      });
+    }
+
+  }
+
+
+
+
+  function myToast(message, type) {
+    if (type == 'success') {
+      $(document).Toasts('create', {
+        class: 'bg-success',
+        title: 'Success',
+        autohide: true,
+        delay: 1000,
+        subtitle: 'Done',
+        body: message + '.'
+      });
+    } else {
+      $(document).Toasts('create', {
+        class: 'bg-danger',
+        title: 'Error',
+        subtitle: 'Failed',
+        autohide: true,
+        delay: 1000,
+        body: message + '.'
+      });
+    }
+  }
+
+  function getDateTimeFormate(str) {
+    var today = new Date(str);
+
+    var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    var dateTime = date + ' ' + time;
+    return dateTime;
+  }
+
+  function yesNoDialog(message) {
+    if (confirm(message)) return true;
+    else return false;
+  }
+</script>

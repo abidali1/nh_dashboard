@@ -10,6 +10,7 @@ const query=require('./config/query');
 const news=require('./routers/news.js');
 const notes=require('./routers/notes.js');
 const singleNews=require('./routers/singleNews.js');
+const reportFilter=require('./routers/reportFilter.js');
 
 
 app.use(express.json());
@@ -18,7 +19,7 @@ app.use('/',news);
 app.use('/news',news);
 app.use('/notes',notes);
 app.use('/singleNews',singleNews);
-
+app.use('/reportFilter',reportFilter);
 
 
 // app.listen(3000,()=>{
