@@ -681,7 +681,12 @@
       save_btn = `<a news_id="${news_id}" data-toggle="modal" data-target="#addToFolderModel" class="link-black text-sm mr-2 saveBTN" href="#"><i class="fas fa-save mr-1"></i>Not Saved</a>`;
     else {
       var folder_name = document.querySelector(`[folder_id="${in_folder}"]`);
-      folder_name = $(folder_name).find('p').html();
+
+      //alert(folder_name);
+
+    //  alert();
+
+      folder_name = $(folder_name).find("label").text();
       save_btn = `<a news_id="${news_id}" folder_id="${in_folder}" data-toggle="modal" data-target="#addToFolderModel" class=" text-success link-black text-sm mr-2 saveBTN" href="#"><i class="fas fa-save mr-1"></i> SAVED (<i class="nav-icon fas  fa-folder"></i> ${folder_name})</a>`;
     }
 
