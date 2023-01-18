@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Newshunt | Dashboard</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="../assets/plugins/fontawesome-free/css/all.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../assets/dist/css/adminlte.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="assets\docs\assets\css\icheck-material.min.css">
+  <link rel="stylesheet" href="../assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="../assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="../assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+  <link rel="stylesheet" href="../assets/plugins/summernote/summernote-bs4.min.css">
+  <style>
+    .container {
+        position: fixed;
+        top: 20%;
+        left: 28%;
+        margin-top: -65px;
+        margin-left: -100px;
+        border-radius: 7px;
+    }
+
+    #makepdf {
+        box-sizing: content-box;
+        width: 700px;
+        height: 150px;
+        padding: 30px;
+        border: 1px solid black;
+        font-style: sans-serif;
+        background-color: #f0f0f0;
+    }
+
+    #button {
+        background-color: #4caf50;
+        border-radius: 5px;
+        margin-left: 650px;
+        margin-bottom: 5px;
+        color: white;
+    }
+
+    h2 {
+        text-align: center;
+        color: #24650b;
+    }
+</style>
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <!-- Site wrapper -->
+  <div class="wrapper">
+
+
+
+
+    <!-- Content Wrapper. Contains page content -->
+
+    <!-- /.content-wrapper -->
+
+
+
+
+
+    <div style="margin-left:0" class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1>Generated Report</h1>
+            </div>
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active">Blank Page</li>
+              </ol>
+            </div>
+          </div>
+        </div><!-- /.container-fluid -->
+      </section>
+
+      <!-- Main content -->
+      <section class="row content">
+
+        <!-- Default box -->
+
+
+
+
+        <div id="notes_part" class="col-md-12">
+
+
+
+          <div class="offset-md-2 col-md-8">
+            <div class="card card-outline card-info">
+              <div class="card-header">
+                <h3 class="card-title">
+                  Report Editor
+                </h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <textarea id="summernote">
+                      Place <em>some</em> <u>text</u> <strong>here</strong>
+                    </textarea>
+              </div>
+              <div class="card-footer">
+                <button id="saveNote" type="button" class="btn btn-info  btn-small btn-flat float-right"><i class="fa fa-download "></i> Download PDF</button>
+                <button id="showNote" type="button" style="margin-right:5px" class="btn btn-info  btn-small float-right "><i class="fa fa-print"></i> Print</button>
+
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+
+    </div>
+    <!-- /.col -->
+  </div>
+  <!-- /.card -->
+
+  </section>
+  <!-- /.content -->
+  </div>
+
+  </div>
+
+
+  <footer class="main-footer">
+    <div class="float-right d-none d-sm-block">
+      <b>Version</b> 1.0.0
+    </div>
+    <strong>Copyright &copy; 2023 <a href="#">newshunt</a>.</strong> All rights reserved.
+  </footer>
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+  </div>
+  <!-- ./wrapper -->
+
+  <!-- jQuery -->
+  <script src="../assets/plugins/jquery/jquery.min.js"></script>
+  <!-- Bootstrap 4 -->
+  <script src="../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="../assets/dist/js/adminlte.min.js"></script>
+  <!-- AdminLTE for demo purposes -->
+  <script src="../assets/dist/js/demo.js"></script>
+
+  <script src="../assets/plugins/datatables/jquery.dataTables.min.js"></script>
+  <script src="../assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+  <script src="../assets/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+  <script src="../assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+  <script src="../assets/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+  <script src="../assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+
+  <!-- HEAVY LOADING TIME -->
+  <!-- <script src="../assets/plugins/jszip/jszip.min.js"></script>
+  <script src="../assets/plugins/pdfmake/pdfmake.min.js"></script>
+  <script src="../assets/plugins/pdfmake/vfs_fonts.js"></script> -->
+  <script src="../assets/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+  <script src="../assets/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+  <script src="../assets/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+  <script src="../assets/plugins/summernote/summernote-bs4.min.js"></script>
+  <script src="../assets/plugins/summernote/summernote-ext-print.js"></script>
+  <script src="../assets/plugins/summernote/jspdf.min.js"></script>
+
+
+ </body>
+
+</html>
+
+<script>
+  var myNewsData = <%- notesData %>;
+  $(function() {
+    //  row;
+    //  var date = new Date(row.pub_date);
+    //  date = date.toDateString();
+    // var news = newsTemplate(row.news_id, row.source, date, row.title.toUpperCase(), row.description, row.url, row.key_words.replace(',', ' | '), row.in_folder, row.notes_news, row.body, row.note_id);
+    //  $('#news_part').append(news);
+
+    $('#summernote').summernote({
+      toolbar: [
+        ['misc', ['print']],
+        ['style', ['style']],
+        ['font', ['bold', 'italic', 'underline', 'clear']],
+        ['fontname', ['fontname']],
+        ['color', ['color']],
+        ['para', ['ul', 'ol', 'paragraph']],
+        ['height', ['height']],
+        ['table', ['table']],
+        ['insert', ['link', 'picture', 'hr']],
+        ['view', ['fullscreen', 'codeview']],
+        ['help', ['help']]
+      ],
+      minHeight: $('#notes_part').height() - 240, // set minimum height of editor
+      maxHeight: null, // set maximum height of editor
+      focus: true,
+    });
+
+
+
+
+      var newsAndNotes = '';
+
+    myNewsData.forEach(row => {
+      var date = new Date(row.pub_date);
+      date = date.toDateString();
+      var news = newsTemplate(row.news_id, row.source, date, row.title.toUpperCase(), row.description, row.url, row.key_words.replace(',', ' | '), row.in_folder, row.notes_news, row.body, row.note_id);
+      newsAndNotes += news;
+    })
+
+    // var allData=news;
+    // allData+=row.notes_news;
+
+    $('#summernote').summernote('code', newsAndNotes);
+
+
+
+
+    $('#saveNote').click(function() {
+
+
+   
+            var makePDF = document.getElementsByClassName('note-editable');
+            var mypdf=makePDF[0];
+            html2pdf().from(mypdf).save();
+
+     // addNotes(row.news_id, 3, $('#summernote').summernote('code'));
+
+
+    });
+
+
+    $("body").on('click', '.btnCopyNote', function() {
+
+      $('#summernote').summernote('code', '<b>' + row.title.toUpperCase() + '</b><p></p>' + row.body);
+
+    });
+
+    $('#showNote').click(function() {
+
+
+      $('.print-icon').parent().click();
+
+    });
+
+
+  });
+
+
+
+
+  function newsTemplate(news_id, source, pub_date, title, description, url, keywords, in_folder, notes_news, body, note_id) {
+    var save_btn;
+    var note_btn;
+
+
+
+    if (note_id != 'null')
+
+
+      if (in_folder == null)
+        save_btn = `<a news_id="${news_id}" data-toggle="modal" data-target="#addToFolderModel" class="link-black text-sm mr-2 saveBTN" href="#"><i class="fas fa-save mr-1"></i>Not Saved</a>`;
+      else {
+        var folder_name = document.querySelector(`[folder_id="${in_folder}"]`);
+        folder_name = $(folder_name).find('p').html();
+        save_btn = `<a news_id="${news_id}" folder_id="${in_folder}" data-toggle="modal" data-target="#addToFolderModel" class=" text-success link-black text-sm mr-2 saveBTN" href="#"><i class="fas fa-save mr-1"></i> SAVED (<i class="nav-icon fas  fa-folder"></i>)</a>`;
+      }
+
+
+    if (note_id == null)
+      note_btn = `     <a news_id="${news_id}"  class=" link-black text-sm mr-2 btnCopyNote" href="#"><i class="fas fa-clone mr-1" ></i>Copy to editor</a>`;
+
+    else {
+
+      note_btn = `    `;
+
+    }
+
+    var myNews = `   <div class="col-md-12">
+       
+
+
+
+          <div class="card">
+
+
+            <div class="card-header" style='    background-color: #e6edf4;'>
+          
+
+          <div style="margin-left: 0;    margin-bottom: 0px;" class="row">
+                        <a class=" float-left " style='font-size:18px; '   href="#">   ${source}</a>
+                        
+
+                        <a style="margin-top: 4px;margin-left: 5px;" class="description float-left ">${pub_date}</a>
+
+
+                    </div>
+
+                  <div  class="row" style='margin-left:0;' >  
+                <h5  style='font-size:18px; color:#6c757d;font-weight: 600; font-size: 1.25rem;margin-bottom:0px'>${title}</h5>
+
+              </div>
+   
+
+        </div>
+
+
+            <div class="card-body">
+              <div class="tab-content">
+                <div class="tab-pane active" id="activity">
+                  <!-- Post -->
+                  <div class="post">
+               
+
+                    <p style='margin:0;font-weight: 600; font-size:small'>
+                    <a href="#" class="float-left text-info">Notes:</a><br>${notes_news}
+</p>
+
+              
+                    <p style='margin:0;font-weight: 600; font-size:small'>
+                    <a href="#" class="float-left text-info">Keywords: ${keywords}</a>
+</p>
+                  </div>
+                  <!-- /.post -->
+
+
+
+                  <!-- /.tab-pane -->
+
+                  <!-- /.tab-pane -->
+                </div>
+                <!-- /.tab-content -->
+              </div><!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+
+          <!-- /.col -->
+        </div>
+       
+        `;
+
+    return myNews;
+
+  }
+
+  async function addNotes(news_id, user_id, notes) {
+    // data to be sent to the POST request
+    let _data = {
+      news_id: news_id,
+      user_id: user_id, // hard_coded
+      notes: notes
+    }
+
+    try {
+      const response = await fetch('/notes/addNotes', {
+        method: "POST",
+        body: JSON.stringify(_data),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+        }
+      });
+
+      myToast('Notes added successfully', 'success');
+      const json = await response.json();
+      //    return json;
+
+
+      var listItem = `               
+                <div class="direct-chat-msg right">
+                  <div class="direct-chat-infos clearfix">
+                    <button notes_id="${json.id}" type="button" class="close deleteNote"  aria-label="Close">
+                      <span aria-hidden="true">×</span>
+                    </button>
+                    <span class="direct-chat-timestamp float-left">${json.createdAt}</span>
+                  </div>
+           
+                  <div class="direct-chat-text">
+                    ${json.notes}
+                  </div>
+                </div>
+          
+            `;
+
+
+      $('#notesBlock').append(listItem);
+
+      //  myToast('Note added succesfully', 'success');
+
+
+
+      return json;
+      // dataTable.row.add([json.id, json.name, json.role, json.createdAt]).draw(false);
+    } catch (err) {
+      console.log(err);
+      myToast('Check Console', 'error');
+
+    }
+  }
+
+
+
+  async function deleteNote(notes_id) {
+    try {
+      const response = await fetch(`deleteNotes/${notes_id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+        }
+      });
+      const json = await response.json();
+      myToast('Note removed succesfully', 'success');
+      $('#summernote').summernote('code', '');
+    } catch (err) {
+      console.log(err);
+      $(document).Toasts('create', {
+        class: 'bg-danger',
+        title: 'Error',
+        subtitle: 'Failed',
+        body: 'Server ERROR. check console.'
+      });
+    }
+
+  }
+
+  function myToast(message, type) {
+    if (type == 'success') {
+      $(document).Toasts('create', {
+        class: 'bg-success',
+        title: 'Success',
+        autohide: true,
+        delay: 1000,
+        subtitle: 'Done',
+        body: message + '.'
+      });
+    } else {
+      $(document).Toasts('create', {
+        class: 'bg-danger',
+        title: 'Error',
+        subtitle: 'Failed',
+        autohide: true,
+        delay: 1000,
+        body: message + '.'
+      });
+    }
+
+
+  }
+
+  function yesNoDialog(message) {
+    if (confirm(message)) return true;
+    else return false;
+  }
+</script>

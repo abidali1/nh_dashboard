@@ -11,6 +11,8 @@ const news=require('./routers/news.js');
 const notes=require('./routers/notes.js');
 const singleNews=require('./routers/singleNews.js');
 const reportFilter=require('./routers/reportFilter.js');
+const report=require('./routers/report.js');
+
 
 
 app.use(express.json());
@@ -20,6 +22,8 @@ app.use('/news',news);
 app.use('/notes',notes);
 app.use('/singleNews',singleNews);
 app.use('/reportFilter',reportFilter);
+app.use('/report',report);
+
 
 
 // app.listen(3000,()=>{
