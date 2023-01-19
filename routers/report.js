@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const query = require('../config/query.js');
 const db = require('../models');
-
+// const jsreport = require('jsreport');
 
 
 router.get('/:user_id!:news_id', (req, res) => {
@@ -13,6 +13,25 @@ router.get('/:user_id!:news_id', (req, res) => {
 });
 
 
+// router.get('report/:user_id!:news_id', (req, res) => {
+//   notesPageData(req.params, (result) => {
+         
+//     jsreport.render({
+//       template: {
+//         content: '<h1>Hello world</h1>',
+//         engine: 'handlebars',
+//         recipe: 'chrome-pdf'
+//       }
+//     }).then((out)  => {
+//       out.stream.pipe(res);
+//     }).catch((e) => {
+//       res.end(e.message);
+//     });
+
+
+
+//   });
+// });
 
 
 
