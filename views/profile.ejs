@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Newshunt | Dashboard</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="assets/plugins/fontawesome-free/css/all.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="assets/dist/css/adminlte.min.css">
+   <!-- Theme style -->
+   <link rel="stylesheet" href="assets\docs\assets\css\icheck-material.min.css">
+   <link rel="stylesheet" href="assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+<link rel="stylesheet" href="assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+<link rel="stylesheet" href="assets/build/mycss.css">
+</head>  
+
+<body class="sidebar-mini layout-fixed layout-navbar-fixed">
+<!-- Site wrapper -->
+<div class="wrapper">
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-light text-sm" style="font-weight:bold" >
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </li>
+     
+     
+      <li class="nav-item  d-sm-inline-block">
+        <a href="/news" class="nav-link">News Feed <span style="position: absolute; margin-top: -5px;margin-left: 5px;" class="right badge badge-danger"></span></a>
+      </li>
+
+
+      <li class="nav-item  d-sm-inline-block">
+        <a href="/reportFilter" class="nav-link">Reports <span style="position: absolute; margin-top: -10px;margin-left: -10px;" class="right badge badge-danger">New</span></a>
+      </li>
+    
+
+
+      <li class="nav-item  d-sm-inline-block">
+        <a href="/statistics" class="nav-link">Statistics <span style="position: absolute; margin-top: -5px;margin-left: 5px;" class="right badge badge-danger"></span></a>
+      </li>
+
+      <li class="nav-item  d-sm-inline-block">
+        <a href="/settings" class="nav-link">Settings <span style="position: absolute; margin-top: -5px;margin-left: 5px;" class="right badge badge-danger"></span></a>
+      </li>
+
+      <li class="nav-item  d-sm-inline-block">
+        <a href="/profile" class="nav-link">Profile Management <span style="position: absolute; margin-top: -5px;margin-left: 5px;" class="right badge badge-danger"></span></a>
+      </li>
+
+    </ul>
+
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+      
+      <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#">
+          <i class="far fa-comments"></i>
+          <span class="badge badge-danger navbar-badge">3</span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+          <a href="#" class="dropdown-item">
+            <!-- Message Start -->
+            <div class="media">
+              <img src="../assets/dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+              <div class="media-body">
+                <h3 class="dropdown-item-title">
+                  User
+                  <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
+                </h3>
+                <p class="text-sm">                    Under Construction
+
+
+                </p>
+                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+              </div>
+            </div>
+            <!-- Message End -->
+          </a>
+        
+        </div>
+      </li>
+
+
+      <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#">
+          <i class="far fa-bell"></i>
+          <span class="badge badge-warning navbar-badge">15</span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+          <span class="dropdown-item dropdown-header">15 Notifications</span>
+          <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item">
+            <i class="fas fa-envelope mr-2"></i> 4 new News (Alerts)
+            <span class="float-right text-muted text-sm">3 mins</span>
+          </a>
+          <div class="dropdown-divider"></div>
+    
+          <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item">
+            <i class="fas fa-file mr-2"></i> 3 new reports
+            <span class="float-right text-muted text-sm">2 days</span>
+          </a>
+
+
+          <a href="#" class="dropdown-item">
+            <i class="fas fa-file mr-2"></i> 3 new News (by Keywords)
+            <span class="float-right text-muted text-sm">2 days</span>
+          </a>
+          <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item dropdown-footer">Under Construction</a>
+
+        </div>
+      </li>
+
+
+     
+      <li class="nav-item">
+        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+          <i class="fas fa-expand-arrows-alt"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+          <i class="fas fa-th-large"></i>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <aside  style="position: fixed;" class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="assets/index3.html" class="brand-link">
+      <img src="assets/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-light">Dashboard</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="assets/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+          <a href="#" class="d-block">Muhammad Salman</a>
+        </div>
+      </div>
+
+      <!-- SidebarSearch Form -->
+    
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+       
+       
+       
+       
+       
+            
+            
+  
+
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+
+
+
+  <div class="content-wrapper" style="min-height: 2488.31px;">
+  
+  
+  
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>
+                Profile
+              <small id="secNameHeader">Management</small>
+            </h1>
+          </div>
+       
+        </div>
+      </div>
+    </section>
+  
+    <section id="secAnalytics" style="   padding-top: 0; padding-bottom: 0;" class="content-header">
+    
+        <div class="col-12 text-center d-flex align-items-center justify-content-center">
+            <div class="">
+              <h2>News<strong>HUNT</strong></h2>
+              <p class="lead mb-5">This module is under construction...<br>
+              </p>
+            </div>
+          </div>
+    
+    </section>
+  
+    <section id="secNotes" style="display: none;" class="content-header"></section>
+  
+
+  </div>
+  
+  
+  </div>
+  
+  
+  <footer class="main-footer">
+    <div class="float-right d-none d-sm-block">
+      <b>Version</b> 1.0.0
+    </div>
+    <strong>Copyright &copy; 2023 <a href="#">newshunt</a>.</strong> All rights reserved.
+  </footer>
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+  </div>
+  <!-- ./wrapper -->
+
+  <!-- jQuery -->
+  <script src="assets/plugins/jquery/jquery.min.js"></script>
+  <!-- Bootstrap 4 -->
+  <script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="assets/dist/js/adminlte.min.js"></script>
+  <!-- AdminLTE for demo purposes -->
+  <script src="assets/dist/js/demo.js"></script>
+
+  <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
+  <script src="assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+  <script src="assets/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+  <script src="assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+  <script src="assets/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+  <script src="assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+
+  <!-- HEAVY LOADING TIME -->
+  <!-- <script src="assets/plugins/jszip/jszip.min.js"></script>
+  <script src="assets/plugins/pdfmake/pdfmake.min.js"></script>
+  <script src="assets/plugins/pdfmake/vfs_fonts.js"></script> -->
+  <script src="assets/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+  <script src="assets/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+  <script src="assets/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+  </body>
+
+  </html>

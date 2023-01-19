@@ -12,11 +12,11 @@
       <div class="row mb-2">
         <div class="col-sm-6">
           <h1>
-            News &amp; Keywords
-            <small>Dashboard</small>
+            Home
+            <small>News Feed</small>
           </h1>
         </div>
-     
+
       </div>
     </div>
   </section>
@@ -137,7 +137,7 @@
   <section id="secNotes" style="display: none;" class="content-header"></section>
 
   <!-- Main content -->
-  <section style="padding-bottom:10px"   class="content">
+  <section style="padding-bottom:10px" class="content">
     <div class="container-fluid">
 
       <div class="row">
@@ -148,7 +148,7 @@
             <div class="card card-primary card-outline">
               <div class="card-header">
                 <h3 class="card-title">Keywords</h3>
-      
+
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                     <i class="fas fa-minus"></i>
@@ -158,10 +158,10 @@
                   </button>
                 </div>
               </div>
-             
-             
-             
-             
+
+
+
+
               <div id="myKW" style="display: none;"><% keywords %> </div>
               <div id="mySources" style="display: none;"><%= sources %> </div>
               <div id="myCountries" style="display: none;"><%= countries %> </div>
@@ -223,7 +223,12 @@
         </div><!-- /.container-fluid -->
       </div>
     </div>
-    <div style='text-align: center;margin:auto;width: 80%; ' class="card"><button style="border:1px;padding:20px" id='loadMore'>Please select filters and click green arrow icon...</button></div>
+    <div style='text-align: center;margin:auto;width: 80%; ' class="card"><button style="font-size: 12px;border: 1px;      padding-top: 10px;      font-weight: bold;" id='loadMore'>Please select filters and click green arrow icon...
+
+      </button>
+      <button  id="loadIcon" style="    background-color: #f0f0f0; border: 1px;  padding-bottom: 10px;    font-size: 20px; color:black"><i id="loadmoreIcon" class="fa fa-arrow-circle-down" ></i></button>
+
+    </div>
 
   </section>
   <!-- /.content -->
@@ -417,6 +422,8 @@
 
     });
 
+    $('#loadIcon').click( () => {$('#loadMore').click();})
+
   });
 
 
@@ -451,10 +458,16 @@
 
       const json = await response.json();
       //   console.log(json);
-      if (Object.keys(json).length == 0)
+      if (Object.keys(json).length == 0) {
         $('#loadMore').html('No Data Available');
-      else
+        $('#loadmoreIcon').removeClass('fa fa-arrow-circle-down');
+        $('#loadmoreIcon').addClass('fas fa-times');
+      } else {
         $('#loadMore').html('Load More');
+        $('#loadmoreIcon').removeClass('fas fa-times');
+        $('#loadmoreIcon').addClass('fa fa-arrow-circle-down');
+
+      }
       // $('#newsBlock').html('');
       json.forEach(row => {
         var date = new Date(row.pub_date);
@@ -486,8 +499,7 @@
   function newsTemplate(news_id, source, pub_date, title, description, url, keywords, in_folder, notes_news) {
     var save_btn;
     var note_btn;
-    var note_btn_view="";
-
+    var note_btn_view = "";
 
 
 
@@ -600,5 +612,4 @@
     return myNews;
 
   }
-
 </script>
