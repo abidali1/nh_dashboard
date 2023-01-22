@@ -197,30 +197,9 @@
 
 
 
-      $('#allNotes').on('click', function() {
-        getAllNotes(3);
-        $('#secAnalytics').hide();
-        $('#newsBlock').hide();
-        $('#secNotes').show();
-        $('#sec_keywords').hide();
-        $('#loadMore').hide();
 
 
-      });
-
-
-      $('#analytics').on('click', function() {
-
-        getAnalytics(3);
-
-        $('#secAnalytics').show();
-        $('#newsBlock').hide();
-        $('#secNotes').hide();
-        $('#sec_keywords').hide();
-        $('#loadMore').hide();
-
-
-      });
+     
 
     });
 
@@ -715,61 +694,9 @@
     }
 
 
-    async function getAnalytics(user_id) {
-
-
-
-
-      // data to be sent to the POST request
-      let _data = {
-        name: $('#fullname').val(),
-        user_id: 3 // hard_coded
-      }
-
-      try {
-        const response = await fetch(`getAnalytics/${user_id}`, {
-          method: "GET",
-          headers: {
-            "Content-type": "application/json; charset=UTF-8"
-          }
-        });
-        var jsons = await response.json();
-        jsons.forEach(json => {
-
-          $('#Acountries').html(json.county);
-          $('#Akeywords').html(json.keywords);
-          $('#Aopinions').html(json.opinion);
-          $('#Aregions').html(json.regions);
-          $('#Afolders').html(json.forlders);
-          $('#Asources').html(json.source);
-          $('#AsavedNews').html(json.savenews);
-          $('#Anotes').html(json.notes);
-
-
-        });
-
-        // alert($('#folderList').html());
-
-
-
-
-      } catch (err) {
-        console.log(err);
-        $(document).Toasts('create', {
-          class: 'bg-danger',
-          title: 'Error',
-          subtitle: 'Failed',
-          body: 'Server ERROR. check console.'
-        });
-      }
-
-    }
-
-
 
 
     function myToast(message, type) {
-      getAnalytics(3);
       if (type == 'success') {
         $(document).Toasts('create', {
           class: 'bg-success',

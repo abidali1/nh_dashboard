@@ -26,7 +26,7 @@ router.get('/getAllNotes/:user_id', async (req, res) => {
 });
 
 router.get('/getAnalytics/:user_id', async (req, res) => {
-    const result = await query(`
+    const numbers = await query(`
            select 
            (select count(*)  from user_country where user_id=${req.params.user_id}) county ,
            (select count(*)  from user_keywords  where user_id=${req.params.user_id}) keywords,
@@ -36,7 +36,26 @@ router.get('/getAnalytics/:user_id', async (req, res) => {
            (select count(*)  from  folders where user_id=${req.params.user_id}) forlders,
            (select count(*)  from news_folders  where user_id=${req.params.user_id}) savenews,           
            (select count(*)  from notes  where user_id=${req.params.user_id}) notes`);
-    res.send(result);
+
+    const sources = await query(`
+        select country.name, count(source.id) numbers, group_concat(source.source) sources from source 
+        left join country on source.country_id=country.id
+        where country_id in (select country_id from user_country where user_id=${req.params.user_id}) 
+        group by country_id order by count(country_id) desc`);
+
+    const keywordsCat = await query(`select count(keyword_catId) categories from user_keywords where user_id=${req.params.user_id}`);
+    const keywords = await query(`select keyword_category.name, count(keywords.id) numbers, group_concat(keywords.word) keywords from user_keywords 
+        left join keyword_category on user_keywords.keyword_catId=keyword_category.id
+        left join keywords on keyword_category.id=keywords.keyword_catId
+        where user_keywords.user_id = ${req.params.user_id}  group by user_keywords.keyword_catId order by  count(keywords.id) desc`);
+
+
+
+ 
+
+
+
+    res.send({ result: numbers, sources: sources,keywordsCat: keywordsCat,keywords: keywords });
 });
 
 async function deleteNotes(req, res) {
