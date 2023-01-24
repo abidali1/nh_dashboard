@@ -91,10 +91,22 @@ router.get('/getAnalyticsContents/:user_id!:start_date!:end_date', async (req, r
                inner join  news on _a.news_id=news.id
                ) combined group by keyword_catid,name,country order by numbers desc`;
     console.log(myQuery);
-
     const catCooutryContents = await query(myQuery);
 
-    res.send({ result: totalContents, catContents: catContents, catCooutryContents: catCooutryContents });
+
+    myQuery=`select keyword_catid,name,keyword_id, word, count(news_id) numbers from (
+        select distinct _a.news_id,keywords.keyword_catid, kc.name,keyword_id,keywords.word from (
+		select  news_id, keyword_id from keyword_news where
+        keyword_id in (select id from keywords 
+        where keyword_catid in (select keyword_catid from user_keywords where user_id=${req.params.user_id})  ${start_date}  ${end_date}
+        )) _a left join keywords on _a.keyword_id=keywords.id 
+        left join keyword_category kc on keywords.keyword_catid=kc.id
+        ) combined group by keyword_catid,name,keyword_id,word;`;
+        console.log(myQuery);
+        const keywords = await query(myQuery);
+    
+
+    res.send({ result: totalContents, catContents: catContents, catCooutryContents: catCooutryContents, keywords:keywords });
 });
 
 async function deleteNotes(req, res) {
