@@ -175,13 +175,24 @@
               <a id="analytics" href="#" class="nav-link">
                 <i class="nav-icon fas fa-copy"></i>
                 <p>
-                  Analytics
+                  Analytics (Setup)
                   <i class="fas fa-angle-right right"></i>
 
                 </p>
               </a>
             </li>
 
+            <li class="nav-item">
+
+              <a id="analyticsCont" href="#" class="nav-link">
+                <i class="nav-icon fas fa-copy"></i>
+                <p>
+                  Analytics (Contents)
+                  <i class="fas fa-angle-right right"></i>
+
+                </p>
+              </a>
+            </li>
 
             <li class="nav-item">
               <a id="allNotes" href="#" class="nav-link">
@@ -214,12 +225,52 @@
       <section class="content-header">
         <div class="container-fluid">
           <div class="row mb-2">
-            <div class="col-sm-6">
+            <div class="col-md-4 col-12">
               <h1>
                 Statistics
                 <small id="secNameHeader">Analytics</small>
               </h1>
             </div>
+
+            <div id="contentFilter" style="display: none;"  class="col-md-8 col-12">
+              <div class="row">
+
+
+                <div class="col-md-8">
+
+                  <div  style="display:none" class="row" id="specificDates">
+                    <div class="col-md-5">
+
+                      <input id="startdate" class="form-control " type="date">
+
+                    </div>
+                    <div class="col-md-5">
+                      <input id="enddate" class="form-control " type="date">
+                    </div>
+                    <div class="col-md-2">
+                      <button id="btnDates" class="form-control btn btn-info">Submit</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <select id="timePeriod" class="form-control ">
+                    <option value="0">Time Period (All)</option>
+                    <option value="today">Today</option>
+                    <option value="week">Past Week</option>
+                    <option value="month">Past Month</option>
+                    <option class="nav-item" value="specific">Specific Dates</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+
+
+          </div>
+
+          <div id="sweetLoader" style="text-align:center;display:none;" class="row">
+            <div style="margin: auto;" class="overlay"><i class="fas fa-2x fa-sync-alt fa-spin"></i></div>
 
           </div>
         </div>
@@ -342,21 +393,21 @@
                   <small id="secNameHeader">And Sources</small>
                 </h1>
               </div>
-  
+
             </div>
           </div>
         </section>
         <section class="content">
           <div class="content-flued">
-  
-  
+
+
             <div id="divSources" class="row">
-  
+
             </div>
             <!-- /.col -->
-  
-  
-  
+
+
+
             <section class="content-header">
               <div class="container-fluid">
                 <div class="row mb-2">
@@ -366,7 +417,7 @@
                       <small id="secNameHeader">And Keywords</small>
                     </h1>
                   </div>
-  
+
                 </div>
               </div>
             </section>
@@ -377,7 +428,7 @@
                     <div class="small-box bg-warning">
                       <div class="inner">
                         <h2 style='font-weight:600'>CATEGORIES.</h2>
-  
+
                         <h3 style='font-weight:600' id="catValue"></h3>
                       </div>
                       <div class="icon">
@@ -390,17 +441,219 @@
                 <div id="divKeywordCats" class="row">
                 </div>
               </div>
-  
+
             </section>
           </div>
         </section>
       </section>
-   
+
+
+      <section id="secAnalyticsContents" style="   padding-top: 0; padding-bottom: 0; display: none;" class="content-header">
 
 
 
 
+
+        <section class="content">
+          <div class="content-flued">
+            <div class=" col-lg-3 col-12">
+              <div class="card collapsed-card">
+                <div class="small-box bg-info">
+                  <div class="inner">
+                    <h2 style='font-weight:600'>Total News.</h2>
+
+                    <h3 style='font-weight:600' id="totalNews">...</h3>
+                  </div>
+                  <div class="icon">
+                    <i class="ion ion-social-rss"></i>
+                  </div>
+                  <a href="#" class=" card-tools small-box-footer  " data-card-widget="collapse"> <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+              </div>
+            </div>
+
+          
+            <div id="divCatNews" class="row">
+              <div class="col-md-12 col-12"><small style="font-weight: 600;" id="secNameHeader"> Category Wise News</small></div>
+              <div class=" col-lg-3 col-12">
+                <div class="card collapsed-card">
+                 <div class="small-box bg-danger">
+                  <div class="inner">
+                   <h2 style="font-weight:600">Cagegory 1</h2>
+                   <h3 style="font-weight:600">...</h3>
+                  </div>
+                  <div class="icon">
+                    <i class="ion ion-grid"></i>
+                  </div>
+                    <a href="#" class=" card-tools small-box-footer  " data-card-widget="collapse">View More. <i class="fas fa-arrow-circle-right"></i></a>
+                 </div>
+              
+                  <div class="card-body">
+                  </div>
+                </div>
+              
+                </div>
+
+
+                <div class=" col-lg-3 col-12">
+                  <div class="card collapsed-card">
+                   <div class="small-box bg-danger">
+                    <div class="inner">
+                     <h2 style="font-weight:600">Cagegory 2</h2>
+                     <h3 style="font-weight:600">...</h3>
+                    </div>
+                    <div class="icon">
+                      <i class="ion ion-grid"></i>
+                    </div>
+                      <a href="#" class=" card-tools small-box-footer  " data-card-widget="collapse">View More. <i class="fas fa-arrow-circle-right"></i></a>
+                   </div>
+                
+                    <div class="card-body">
+                    </div>
+                  </div>
+                
+                  </div>
+
+                  
+                  <div class=" col-lg-3 col-12">
+                    <div class="card collapsed-card">
+                     <div class="small-box bg-danger">
+                      <div class="inner">
+                       <h2 style="font-weight:600">Cagegory 3</h2>
+                       <h3 style="font-weight:600">...</h3>
+                      </div>
+                      <div class="icon">
+                        <i class="ion ion-grid"></i>
+                      </div>
+                        <a href="#" class=" card-tools small-box-footer  " data-card-widget="collapse">View More. <i class="fas fa-arrow-circle-right"></i></a>
+                     </div>
+                  
+                      <div class="card-body">
+                      </div>
+                    </div>
+                  
+                    </div>
+    
+
+                    <div class=" col-lg-3 col-12">
+                      <div class="card collapsed-card">
+                       <div class="small-box bg-danger">
+                        <div class="inner">
+                         <h2 style="font-weight:600">Cagegory 4</h2>
+                         <h3 style="font-weight:600">...</h3>
+                        </div>
+                        <div class="icon">
+                          <i class="ion ion-grid"></i>
+                        </div>
+                          <a href="#" class=" card-tools small-box-footer  " data-card-widget="collapse">View More. <i class="fas fa-arrow-circle-right"></i></a>
+                       </div>
+                    
+                        <div class="card-body">
+                        </div>
+                      </div>
+                    
+                      </div>
+
+              
+
+            
+
+            </div>
+
+
+
+              
+            <div id="divCatCountries" class="row">
+              <div class="col-md-12 col-12">
+
+              <small style="font-weight: 600;"  id="secNameHeader">Cotegory | Country Wise News</small>
+              </div>
+              <div class=" col-lg-3 col-12">
+                <div class="card collapsed-card">
+                 <div class="small-box bg-success">
+                  <div class="inner">
+                   <h2 style="font-weight:600">Country 1</h2>
+                   <h3 style="font-weight:600">...</h3>
+                  </div>
+                  <div class="icon">
+                    <i class="ion ion-grid"></i>
+                  </div>
+                    <a href="#" class=" card-tools small-box-footer  " data-card-widget="collapse">View More. <i class="fas fa-arrow-circle-right"></i></a>
+                 </div>
+              
+                  <div class="card-body">
+                  </div>
+                </div>
+              
+                </div>
+
+                <div class=" col-lg-3 col-12">
+                  <div class="card collapsed-card">
+                   <div class="small-box bg-success">
+                    <div class="inner">
+                     <h2 style="font-weight:600">Country 2</h2>
+                     <h3 style="font-weight:600">...</h3>
+                    </div>
+                    <div class="icon">
+                      <i class="ion ion-grid"></i>
+                    </div>
+                      <a href="#" class=" card-tools small-box-footer  " data-card-widget="collapse">View More. <i class="fas fa-arrow-circle-right"></i></a>
+                   </div>
+                
+                    <div class="card-body">
+                    </div>
+                  </div>
+                </div>
+
+
+                  <div class=" col-lg-3 col-12">
+                    <div class="card collapsed-card">
+                     <div class="small-box bg-success">
+                      <div class="inner">
+                       <h2 style="font-weight:600">Country 3</h2>
+                       <h3 style="font-weight:600">...</h3>
+                      </div>
+                      <div class="icon">
+                        <i class="ion ion-grid"></i>
+                      </div>
+                        <a href="#" class=" card-tools small-box-footer  " data-card-widget="collapse">View More. <i class="fas fa-arrow-circle-right"></i></a>
+                     </div>
+                  
+                      <div class="card-body">
+                      </div>
+                    </div>
+                  </div>
+
+
+                    <div class=" col-lg-3 col-12">
+                      <div class="card collapsed-card">
+                       <div class="small-box bg-success">
+                        <div class="inner">
+                         <h2 style="font-weight:600">Country 4</h2>
+                         <h3 style="font-weight:600">...</h3>
+                        </div>
+                        <div class="icon">
+                          <i class="ion ion-grid"></i>
+                        </div>
+                          <a href="#" class=" card-tools small-box-footer  " data-card-widget="collapse">View More. <i class="fas fa-arrow-circle-right"></i></a>
+                       </div>
+                    
+                        <div class="card-body">
+                        </div>
+                      </div>
+                    </div>
+                
+                  </div>
+            </div>
+          </div>
+
+        </section>
     </div>
+    </section>
+    </section>
+
+
+  </div>
 
 
   </div>
@@ -449,10 +702,63 @@
 </html>
 <script>
   var dataTable;
-
+  var start_date = 0;
+  var end_date = 0;
   var notesBTN;
   $(function() {
+    $('#timePeriod').on('change', () => {
 
+      if ($('#timePeriod').val() == '0') {
+        start_date = '0';
+        end_date = '0';
+      }
+
+
+      if ($('#timePeriod').val() == 'today') {
+        var date = new Date();
+        date.setDate(date.getDate());
+        var dateString = date.toISOString().split('T')[0]; // "2016-06-08"
+        start_date = end_date = dateString;
+      }
+
+      if ($('#timePeriod').val() == 'week') {
+        var date = new Date();
+        end_date = date.toISOString().split('T')[0];
+        date.setDate(date.getDate() - 7);
+        start_date = date.toISOString().split('T')[0];
+      }
+
+      if ($('#timePeriod').val() == 'month') {
+        var date = new Date();
+        end_date = date.toISOString().split('T')[0];
+        date.setDate(date.getDate() - 30);
+        start_date = date.toISOString().split('T')[0];
+      }
+
+
+
+      if ($('#timePeriod').val() == 'specific') {
+        $('#specificDates').slideDown();
+        return;
+      } else {
+        $('#specificDates').slideUp();
+      }
+
+      getAnalyticsContents(3);
+
+    });
+
+    $('#btnDates').click(function() {
+      if ($('#startdate').val() == '' || $('#enddate').val() == '') {
+        myToast('Please select valid filters and try again.', 'error');
+        return;
+      }
+      start_date = $('#startdate').val();
+      end_date = $('#enddate').val();
+      getAnalyticsContents(3);
+
+
+    });
 
     getAnalytics(3);
 
@@ -481,6 +787,9 @@
     $('#allNotes').on('click', function() {
       getAllNotes(3);
       $('#secAnalytics').hide();
+      $('#contentFilter').hide();
+
+      $('#secAnalyticsContents').hide();
       $('#secNotes').show();
       $('#secNameHeader').text('Notes');
 
@@ -491,12 +800,27 @@
     $('#analytics').on('click', function() {
 
       getAnalytics(3);
+      $('#contentFilter').hide();
 
       $('#secAnalytics').show();
       $('#secNotes').hide();
+      $('#secAnalyticsContents').hide();
       $('#secNameHeader').text('Analytics');
 
 
+    });
+
+
+    $('#analyticsCont').on('click', function() {
+
+      getAnalyticsContents(3);
+      contentFilter
+      $('#contentFilter').show();
+
+      $('#secAnalytics').hide();
+      $('#secNotes').hide();
+      $('#secAnalyticsContents').show();
+      $('#secNameHeader').text('Analytics');
     });
 
   });
@@ -732,6 +1056,108 @@
 
 
     } catch (err) {
+      console.log(err);
+      $(document).Toasts('create', {
+        class: 'bg-danger',
+        title: 'Error',
+        subtitle: 'Failed',
+        body: 'Server ERROR. check console.'
+      });
+    }
+
+  }
+
+  async function getAnalyticsContents(user_id) {
+
+$('#sweetLoader').fadeIn();
+
+
+    // data to be sent to the POST request
+    let _data = {
+      name: $('#fullname').val(),
+      user_id: 3 // hard_coded
+    }
+
+    try {
+      const response = await fetch(`statistics/getAnalyticsContents/${user_id}!${start_date}!${end_date}`, {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+        }
+      });
+      var jsons = await response.json();
+      console.log(jsons);
+      $('#sweetLoader').fadeOut();
+
+      $('#totalNews').text(jsons.result[0].numbers);
+
+
+      $('#divCatNews').html(`<div class="col-md-12 col-12"><small style="font-weight: 600;" id="secNameHeader"> Category Wise News</small></div>`);
+      jsons.catContents.forEach(json => {
+        var mySources = `
+<div class=" col-lg-3 col-12">
+  <div class="card collapsed-card">
+   <div class="small-box bg-danger">
+    <div class="inner">
+     <h2 style='font-weight:600'>${json.name.toUpperCase()}</h2>
+     <h3 style='font-weight:600'>${json.numbers}</h3>
+    </div>
+    <div class="icon">
+      <i class="ion ion-grid"></i>
+    </div>
+      <a href="#" class=" card-tools small-box-footer  " data-card-widget="collapse">View More. <i class="fas fa-arrow-circle-right"></i></a>
+   </div>
+
+    <div class="card-body" >
+    </div>
+  </div>
+
+  </div>`;
+        $('#divCatNews').append(mySources);
+
+      });
+
+
+
+
+      $('#divCatCountries').html(`<div class="col-md-12 col-12"><small style="font-weight: 600;" id="secNameHeader"> Category | Country Wise News</small></div>`);
+      jsons.catCooutryContents.forEach(json => {
+        var mykeywords = `
+<div class=" col-lg-3 col-12">
+  <div class="card collapsed-card">
+
+   <div class="small-box bg-success">
+    <h5 class="bg-danger" style='text-align:center;font-weight:600'>${json.name.toUpperCase()} </h5>
+
+    <div class="inner">
+     <h2 style='font-weight:600'>${json.country.toUpperCase()}</h2>
+
+     <h3 style='font-weight:600'>${json.numbers}</h3>
+    </div>
+    <div class="icon">
+      <i class="ion ion-flag" style="margin-top:25px"></i>
+    </div>
+      <a href="#" class=" card-tools small-box-footer  " data-card-widget="collapse">View More. <i class="fas fa-arrow-circle-right"></i></a>
+   </div>
+
+    <div class="card-body" >
+    </div>
+  </div>
+
+  </div>`;
+        $('#divCatCountries').append(mykeywords);
+
+      });
+
+
+      // alert($('#folderList').html());
+
+
+
+
+    } catch (err) {
+      $('#sweetLoader').fadeOut();
+
       console.log(err);
       $(document).Toasts('create', {
         class: 'bg-danger',

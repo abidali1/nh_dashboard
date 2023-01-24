@@ -48,15 +48,66 @@ router.get('/getAnalytics/:user_id', async (req, res) => {
         left join keyword_category on user_keywords.keyword_catId=keyword_category.id
         left join keywords on keyword_category.id=keywords.keyword_catId
         where user_keywords.user_id = ${req.params.user_id}  group by user_keywords.keyword_catId order by  count(keywords.id) desc`);
-
-
-
- 
-
-
-
-    res.send({ result: numbers, sources: sources,keywordsCat: keywordsCat,keywords: keywords });
+    res.send({ result: numbers, sources: sources, keywordsCat: keywordsCat, keywords: keywords });
 });
+
+
+router.get('/getAnalyticsContents/:user_id!:start_date!:end_date', async (req, res) => {
+
+    const start_date = req.params.start_date != '0' && req.params.start_date != undefined ? " AND pub_date  >=  '" + req.params.start_date + "'" : "AND pub_date  >='2022-01-30'";
+    const end_date = req.params.end_date != '0' && req.params.end_date != undefined ? " AND pub_date <='" + req.params.end_date + "'" : '';
+
+    var myQuery = `select count(distinct news_id) numbers from keyword_news where
+    keyword_id in (select id from keywords 
+    where keyword_catid in (select keyword_catid from user_keywords where user_id=${req.params.user_id})
+    ${start_date}  ${end_date})`;
+
+    console.log(myQuery);
+    const totalContents = await query(myQuery);
+
+
+    myQuery = `select keyword_catid,name, count(news_id) numbers from (
+        select distinct _a.news_id,keywords.keyword_catid, kc.name from (
+		select  news_id, keyword_id from keyword_news where
+        keyword_id in (select id from keywords 
+        where keyword_catid in (select keyword_catid from user_keywords where user_id=${req.params.user_id})
+        ${start_date}  ${end_date}
+        )) _a left join keywords on _a.keyword_id=keywords.id 
+        left join keyword_category kc on keywords.keyword_catid=kc.id
+        ) combined group by keyword_catid,name;`;
+
+    console.log(myQuery);
+
+    const catContents = await query(myQuery);
+
+    myQuery = `select keyword_catid,name,country,count(news_id) numbers  from (
+        select distinct _a.news_id,keywords.keyword_catid, news.country, kc.name from (
+               select  news_id, keyword_id from keyword_news where
+               keyword_id in (select id from keywords 
+               where keyword_catid in (select keyword_catid from user_keywords where user_id=${req.params.user_id})  ${start_date}  ${end_date}
+            
+               )) _a inner join keywords on _a.keyword_id=keywords.id 
+               inner join keyword_category kc on keywords.keyword_catid=kc.id
+               inner join  news on _a.news_id=news.id
+               ) combined group by keyword_catid,name,country order by numbers desc`;
+    console.log(myQuery);
+
+    const catCooutryContents = await query(myQuery);
+
+    res.send({ result: totalContents, catContents: catContents, catCooutryContents: catCooutryContents });
+});
+
+async function deleteNotes(req, res) {
+    try {
+        const result = await db.notes.destroy({ where: { id: req.params.notes_id } });
+        return result + '';
+
+    } catch (err) {
+        console.log(err);
+        res.send(err);
+    }
+}
+
 
 async function deleteNotes(req, res) {
     try {
