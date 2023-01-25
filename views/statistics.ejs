@@ -384,19 +384,8 @@
           </div>
 
         </div>
-        <section class="content-header">
-          <div class="container-fluid">
-            <div class="row mb-2">
-              <div class="col-sm-6">
-                <h1>
-                  Countries
-                  <small id="secNameHeader">And Sources</small>
-                </h1>
-              </div>
+        <div class="col-md-12 col-12"><small style="font-weight: 600;" id="secNameHeader"> Countries | Sources</small></div>
 
-            </div>
-          </div>
-        </section>
         <section class="content">
           <div class="content-flued">
 
@@ -407,29 +396,16 @@
             <!-- /.col -->
 
 
-
-            <section class="content-header">
-              <div class="container-fluid">
-                <div class="row mb-2">
-                  <div class="col-sm-6">
-                    <h1>
-                      Categories
-                      <small id="secNameHeader">And Keywords</small>
-                    </h1>
-                  </div>
-
-                </div>
-              </div>
-            </section>
-            <section class="content">
+            <div class="col-md-12 col-12"><small style="font-weight: 600;" id="secNameHeader"> Categories | Keywords</small></div>
+            <section class="">
               <div class="content-flued">
-                <div class=" col-lg-3 col-12">
+                <div style="padding:0" class=" col-lg-2 col-6">
                   <div class="card collapsed-card">
                     <div class="small-box bg-warning">
                       <div class="inner">
-                        <h2 style='font-weight:600'>CATEGORIES.</h2>
+                        <a style='font-weight:600;font-size:15px'>Total Categories.</a>
 
-                        <h3 style='font-weight:600' id="catValue"></h3>
+                        <h3 style='font-weight:600;margin:0;font-size:25px' id="catValue"></h3>
                       </div>
                       <div class="icon">
                         <i class="ion ion-grid"></i>
@@ -1116,12 +1092,12 @@
 
       jsons.sources.forEach(json => {
         var mySources = `
-<div class=" col-lg-3 col-12">
+<div class=" col-lg-2 col-6">
       <div class="card collapsed-card">
        <div class="small-box bg-info">
         <div class="inner">
-         <h2 style='font-weight:600'>${json.name.toUpperCase()}</h2>
-         <h3 style='font-weight:600'>${json.numbers}</h3>
+          <a style='font-weight:600;font-size:15px'>${json.name.toUpperCase()}</a>
+          <h3 style='font-weight:600;margin:0;font-size:25px' id="totalNews">${json.numbers}</h3>
         </div>
         <div class="icon">
           <i class="ion ion-flag"></i>
@@ -1145,12 +1121,12 @@
       $('#divKeywordCats').html(``);
       jsons.keywords.forEach(json => {
         var mykeywords = `
-<div class=" col-lg-3 col-12">
+<div class=" col-lg-2 col-6">
       <div class="card collapsed-card">
        <div class="small-box bg-success">
         <div class="inner">
-         <h2 style='font-weight:600'>${json.name.toUpperCase()}</h2>
-         <h3 style='font-weight:600'>${json.numbers}</h3>
+          <a style='font-weight:600;font-size:15px'>${json.name.toUpperCase()}</a>
+          <h3 style='font-weight:600;margin:0;font-size:25px' id="totalNews">${json.numbers}</h3>
         </div>
         <div class="icon">
           <i class="ion ion-key"></i>
@@ -1282,7 +1258,7 @@
 
 
 
-      $('#divCatCountries').html(`<div class="col-md-12 col-12"><small style="font-weight: 600;" id="secNameHeader"> Category | Country Wise News</small></div>`);
+      $('#divCatCountries').html(`<div class="col-md-12 col-12"><small style="font-weight: 600;" id="secNameHeader"> Category | Keyword | Country Wise Filered News</small></div>`);
       jsons.catCooutryContents.forEach(json => {
         var banner = `     <a class="bg-danger" style='text-align: center;font-weight: 600; font-size: xx-small;'>${json.name.toUpperCase()} </a>`;
         if (keyword != "0") {
