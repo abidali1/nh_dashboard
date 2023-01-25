@@ -98,8 +98,8 @@ function newsQuery(params) {
     const user_id = params.user_id != '0' && params.user_id != undefined ? ' AND  uk.user_id =  ' + params.user_id : '';
     const keyword_id = params.keyword_id != '0' && params.keyword_id != undefined ? ' AND id=' + params.keyword_id : '';
     const keyword_cat_id = params.keyword_cat_id != '0' && params.keyword_cat_id != undefined ? ' AND keyword_catId=' + params.keyword_cat_id : '';
-    const start_date = params.start_date != '0' && params.start_date != undefined ? " AND pub_date  >=  '" + params.start_date + "'" : '';
-    const end_date = params.end_date != '0' && params.end_date != undefined ? " AND pub_date <='" + params.end_date + "'" : '';
+    const start_date = params.start_date != '0' && params.start_date != undefined ? " AND date(pub_date)  >=  '" + params.start_date + "'" : '';
+    const end_date = params.end_date != '0' && params.end_date != undefined ? " AND date(pub_date) <='" + params.end_date + "'" : '';
     const country = params.country != '0' && params.country != undefined ? " AND n.country='" + params.country + "'" : '';
     const source_id = params.source_id != '0' && params.source_id != undefined ? ' AND source_id=' + params.source_id : '';
     const folder_id = params.folder_id != '0' && params.folder_id != undefined ? ' AND  news_id  in (select news_id from news_folders where folder_id in (' + params.folder_id+'))' : '';

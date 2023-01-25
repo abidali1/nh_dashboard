@@ -54,8 +54,8 @@ router.get('/getAnalytics/:user_id', async (req, res) => {
 
 router.get('/getAnalyticsContents/:user_id!:start_date!:end_date!:keyword!:keywordCat', async (req, res) => {
 
-    const start_date = req.params.start_date != '0' && req.params.start_date != undefined ? " AND pub_date  >=  '" + req.params.start_date + "'" : "AND pub_date  >='2022-01-30'";
-    const end_date = req.params.end_date != '0' && req.params.end_date != undefined ? " AND pub_date <='" + req.params.end_date + "'" : '';
+    const start_date = req.params.start_date != '0' && req.params.start_date != undefined ? " AND date(pub_date)  >=  '" + req.params.start_date + "'" : "AND pub_date  >='2022-01-30'";
+    const end_date = req.params.end_date != '0' && req.params.end_date != undefined ? " AND date(pub_date) <='" + req.params.end_date + "'" : '';
     const keyword = req.params.keyword != '0' && req.params.keyword != undefined ? " AND keywords.id   =  '" + req.params.keyword + "'" : '';
     const keywordCat = req.params.keywordCat != '0' && req.params.keywordCat != undefined ? " AND kc.id ='" + req.params.keywordCat + "'" : '';
 
