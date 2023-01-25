@@ -271,8 +271,8 @@ function newsQuery(params) {
     const keyword_cat_id = params.keyword_cat_id != '0' && params.keyword_cat_id != undefined ? ' AND keyword_catId=' + params.keyword_cat_id : '';
     const start_date = params.start_date != '0' && params.start_date != undefined ? " AND pub_date  >=  '" + params.start_date + "'" : '';
     const end_date = params.end_date != '0' && params.end_date != undefined ? " AND pub_date <='" + params.end_date + "'" : '';
-    const country = params.country != '0' && params.country != undefined ? " AND n.country='" + params.country + "'" : '';
-    const source_id = params.source_id != '0' && params.source_id != undefined ? ' AND source_id=' + params.source_id : '';
+    const country = params.country != '0' && params.country != undefined ? " AND NEWS_ID IN (SELECT ID FROM NEWS WHERE COUNTRY='" + params.country + "')" : '';
+    const source_id = params.source_id != '0' && params.source_id != undefined ? ' AND NEWS_ID IN (SELECT ID FROM NEWS WHERE source_id=' + params.source_id+')' : '';
     const folder_id = params.folder_id != '0' && params.folder_id != undefined ? ' AND  news_id  in (select news_id from news_folders where folder_id=' + params.folder_id+')' : '';
 
 
@@ -287,12 +287,13 @@ function newsQuery(params) {
         select   k.id,user_id, k.word  from user_keywords    uk  
         inner join keyword_category kc  on kc.id=uk.keyword_catId ${user_id} 
         inner join (select * from keywords where 1=1  ${keyword_id}   ${keyword_cat_id}) k on k.keyword_catId=kc.id) a      
-        inner join (select * from keyword_news where 1=1 ${folder_id} ${start_date} ${end_date} order by pub_date desc limit ${skip},${limit}) kn on kn.keyword_id= a.id 
+        inner join (select * from keyword_news where 1=1 ${folder_id} ${start_date} ${end_date} ${country} ${source_id}  order by pub_date desc limit ${skip},${limit}) kn on kn.keyword_id= a.id 
         inner join news n on kn.news_id=n.id
         left join news_folders on n.id=news_folders.news_id and news_folders.user_id=   ${params.user_id} 
         left join (select distinct user_id, news_id from notes) note on n.id=note.news_id and note.user_id=   ${params.user_id} 
-        where 1=1 ${country} ${source_id}  group by n.id  order by n.id DESC
+        where 1=1  group by n.id  order by n.id DESC
 -- End Query --`;
+
 
 
 }
