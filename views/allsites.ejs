@@ -1,5 +1,8 @@
 <%- include('header') %>
 
+<div id="myKW" style="display: none;"><% keywords %> </div>
+<div id="mySources" style="display: none;"><%= sources %> </div>
+<div id="myCountries" style="display: none;"><%= countries %> </div>
 
 
 <div class="content-wrapper" style="min-height: 2488.31px;">
@@ -9,12 +12,25 @@
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <div class="container-fluid">
-      <div class="row mb-2">
-        <div class="col-sm-6">
+      <div class="row">
+        <div class="col-sm-4 col-12">
           <h1>
             Home
             <small>News Feed</small>
           </h1>
+        </div>
+
+        <div  class="col-sm-8 col-12" style="text-align:right" id="accordion">
+          <%   var cat; keywords1=JSON.parse(keywords); keywords1.forEach((row) => { if (cat==row.name) {  %>
+
+          <% } else { cat=row.name; %>
+
+          <button style="    margin-bottom: 5px;margin-right: 3px;" type="button" attr="<%= row.cat_id %>" class="btn bg-info " data-toggle="collapse" data-target=".<%= row.name.replace(' ','_') %>" aria-expanded="false" aria-controls="collapseExample">
+          <i class="fa fa-key"  aria-hidden="true"></i>  <%= row.name.toUpperCase() %>
+          </button>
+
+
+          <%   }}); %>
         </div>
 
       </div>
@@ -146,48 +162,11 @@
         <div class="col-md-12" id="sec_keywords">
           <div class="col-md-12">
             <div class="card card-primary card-outline">
-              <div class="card-header">
-                <h3 class="card-title">Keywords</h3>
-
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                  <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-                    <i class="fas fa-times"></i>
-                  </button>
-                </div>
-              </div>
-
-
-
-
-              <div id="myKW" style="display: none;"><% keywords %> </div>
-              <div id="mySources" style="display: none;"><%= sources %> </div>
-              <div id="myCountries" style="display: none;"><%= countries %> </div>
-
-
-
-              <div class="card-body" id="accordion">
-                <%   var cat; keywords1=JSON.parse(keywords); keywords1.forEach((row) => { if (cat==row.name) {  %>
-
-                <% } else { cat=row.name; %>
-
-                <button style="    margin-bottom: 5px;margin-right: 3px;" type="button" attr="<%= row.cat_id %>" class="btn bg-gradient-secondary" data-toggle="collapse" data-target=".<%= row.name.replace(' ','_') %>" aria-expanded="false" aria-controls="collapseExample">
-                  <%= row.name.toUpperCase() %>
-                </button>
-
-
-                <%   }}); %>
-              </div>
-
-
-
 
 
               <%   var cat1; keywords=JSON.parse(keywords); keywords.forEach((row) => { if (cat1==row.name) {  %>
-              <button type="button" attr="<%= row.keyword_id %>" class="KW btn btn-default" data-toggle="modal" data-target="#modal-default">
-                <%= row.word %>
+              <button type="button" attr="<%= row.keyword_id %>" style="font-size: x-small;font-weight: bolder;" class="KW  btn btn-default" data-toggle="modal" data-target="#modal-default">
+                <i class="fa fa-key"></i>      <%= row.word %>
               </button>
               <% } else { cat1=row.name; %>
 
@@ -196,13 +175,13 @@
 
 
           <div class="collapse data-parent='#accordion' <%= row.name.replace(' ','_')   %>">
-            <div class="card-body">
-              <button type="button" attr="<%= row.cat_id %>" class="KW_Cat btn bg-gradient-secondary" data-toggle="collapse" data-target=".<%= row.name %>" aria-expanded="false" aria-controls="collapseExample">
-                All
+            <div style="padding-top:0" class="card-body">
+              <button type="button" style="font-size:x-small;font-weight: bolder;" attr="<%= row.cat_id %>" class="KW_Cat btn bg-info" data-toggle="collapse" data-target=".<%= row.name %>" aria-expanded="false" aria-controls="collapseExample">
+                <i class="fa fa-key"></i>         Show All
               </button>
 
-              <button type="button" attr="<%= row.keyword_id %>" class="KW btn btn-default" data-toggle="modal" data-target="#modal-default">
-                <%= row.word %>
+              <button type="button" attr="<%= row.keyword_id %>"  style="font-size: x-small;;font-weight: bolder;"  class="KW  btn  btn-default" data-toggle="modal" data-target="#modal-default">
+             <i class="fa fa-key"></i>  <%= row.word %>
               </button>
 
               <%   }}); %>
