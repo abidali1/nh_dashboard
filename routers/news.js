@@ -268,12 +268,17 @@ function newsQuery(params) {
 
     const user_id = params.user_id != '0' && params.user_id != undefined ? ' AND  uk.user_id =  ' + params.user_id : '';
     const keyword_id = params.keyword_id != '0' && params.keyword_id != undefined ? ' AND id=' + params.keyword_id : '';
+    const keyword_id_2 = params.keyword_id != '0' && params.keyword_id != undefined ? ' AND keyword_id=' + params.keyword_id : '';
     const keyword_cat_id = params.keyword_cat_id != '0' && params.keyword_cat_id != undefined ? ' AND keyword_catId=' + params.keyword_cat_id : '';
+    const keyword_cat_id_2 = params.keyword_cat_id != '0' && params.keyword_cat_id != undefined ? ' and keyword_id in (select id from keywords where keyword_catId='+ params.keyword_cat_id+')  ': '';
+
     const start_date = params.start_date != '0' && params.start_date != undefined ? " AND date(pub_date)  >=  '" + params.start_date + "'" : '';
     const end_date = params.end_date != '0' && params.end_date != undefined ? " AND date(pub_date) <='" + params.end_date + "'" : '';
     const country = params.country != '0' && params.country != undefined ? " AND NEWS_ID IN (SELECT ID FROM news WHERE country='" + params.country + "')" : '';
     const source_id = params.source_id != '0' && params.source_id != undefined ? ' AND NEWS_ID IN (SELECT ID FROM news WHERE source_id=' + params.source_id+')' : '';
     const folder_id = params.folder_id != '0' && params.folder_id != undefined ? ' AND  news_id  in (select news_id from news_folders where folder_id=' + params.folder_id+')' : '';
+
+
 
 
     const limit = params.limit != '0' && params.limit != undefined ? '' + params.limit : '20';
@@ -287,7 +292,7 @@ function newsQuery(params) {
         select   k.id,user_id, k.word  from user_keywords    uk  
         inner join keyword_category kc  on kc.id=uk.keyword_catId ${user_id} 
         inner join (select * from keywords where 1=1  ${keyword_id}   ${keyword_cat_id}) k on k.keyword_catId=kc.id) a      
-        inner join (select * from keyword_news where 1=1 ${folder_id} ${start_date} ${end_date} ${country} ${source_id}  order by pub_date desc limit ${skip},${limit}) kn on kn.keyword_id= a.id 
+        inner join (select * from keyword_news where 1=1 ${folder_id} ${start_date} ${end_date} ${country} ${source_id} ${keyword_id_2}  ${keyword_cat_id_2} order by pub_date desc limit ${skip},${limit}) kn on kn.keyword_id= a.id 
         inner join news n on kn.news_id=n.id
         left join news_folders on n.id=news_folders.news_id and news_folders.user_id=   ${params.user_id} 
         left join (select distinct user_id, news_id from notes) note on n.id=note.news_id and note.user_id=   ${params.user_id} 
