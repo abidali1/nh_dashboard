@@ -785,7 +785,7 @@
 
       if ($('#timePeriod').val() == 'today') {
         var date = new Date();
-        date.setDate(date.getDate() + 1);
+        date.setDate(date.getDate());
 
         var dateString = date.toISOString().split('T')[0]; // "2016-06-08"
        
