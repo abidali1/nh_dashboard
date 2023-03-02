@@ -353,7 +353,7 @@
 
   async function loadSuggestions(event) {
     // alert();
-    const response = await fetch(`/news/elastic_autocomplete/` + $('#myInput').val() + "!*!3", {
+    const response = await fetch(`/news/elastic_autocomplete/` + $('#myInput').val(), {
       method: "Get",
       headers: {
         "Content-type": "application/json; charset=UTF-8"

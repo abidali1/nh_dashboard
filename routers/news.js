@@ -4,7 +4,7 @@ const query = require('../config/query.js');
 const db = require('../models');
 const  client  = require('../config/elastic.js');
 
-router.get('/elastic_autocomplete/:queryText!*!:user_id', async (req, res) => {
+router.get('/elastic_autocomplete/:queryText', async (req, res) => {
     console.log(req.params.queryText);
     const response = await client.search({
         index: 'news_elastic',
