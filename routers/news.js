@@ -2,6 +2,111 @@ const express = require('express');
 const router = express.Router();
 const query = require('../config/query.js');
 const db = require('../models');
+const  client  = require('../config/elastic.js');
+
+router.get('/elastic_autocomplete/:queryText!*!:user_id', async (req, res) => {
+    console.log(req.params.queryText);
+    const response = await client.search({
+        index: 'news_elastic',
+        "track_total_hits": true,
+        "from": 0,
+        "size": 50,
+        body: {
+            query: {
+                // "bool": {
+                //     must: [
+                //         { range: { "news_id": { "gt": 0 } } },
+                //         { match: { title: req.params.queryText } }
+                //     ]
+                // }
+
+                "query_string": {
+                    "query": req.params.queryText,
+                    "default_field": "title"
+                  }
+
+                //   "match_phrase": {
+                //     "title": {
+                //       "query": req.params.queryText
+                //     }
+                //   }
+            },
+
+            "sort": [
+               // { "news_id": "desc" },
+                { "_score": "desc" },
+
+
+            ]
+        }
+    });
+    const news_ids = [];
+    const hits = response.hits.hits;
+   
+    hits.forEach(row => {
+        news_ids.push(row._source.title);
+    });
+
+    res.json(news_ids);
+});
+
+router.get('/elastic/:queryText!*!:user_id', async (req, res) => {
+    console.log(req.params.queryText);
+    const response = await client.search({
+        index: 'news_elastic',
+        "track_total_hits": true,
+        "from": 0,
+        "size": 20,
+        body: {
+            query: {
+                // "bool": {
+                //     must: [
+                //         { range: { "news_id": { "gt": 0 } } },
+                //         { match: { title: req.params.queryText } }
+                //     ]
+                // }
+
+                "query_string": {
+                    "query": req.params.queryText,
+                    "default_field": "title"
+                  }
+
+                //   "match_phrase": {
+                //     "title": {
+                //       "query": req.params.queryText
+                //     }
+                //   }
+            },
+
+            "sort": [
+               // { "news_id": "desc" },
+                { "_score": "desc" },
+
+
+            ]
+        }
+    });
+    console.log(response.hits.hits);
+    const hits = response.hits.hits;
+    const news_ids = [];
+    hits.forEach(row => {
+        news_ids.push(row._source.news_id);
+    });
+   // res.json(news_ids);
+
+   if(news_ids.length>8){
+    const sqlAfterElastic= await elasticSQL(req.params, news_ids);
+    console.log(sqlAfterElastic);
+    var result = await query(sqlAfterElastic);
+
+    res.json(result);
+   }
+   else{
+    res.json("no record found");
+
+   }
+
+});
 
 
 router.get('/', (req, res) => {
@@ -158,13 +263,13 @@ async function addFolderNews(req, res) {
 
     try {
 
-       const del = await db.news_folder.destroy({ where: { user_id: user_id, news_id: news_id } })
+        const del = await db.news_folder.destroy({ where: { user_id: user_id, news_id: news_id } })
 
-        if(folder_id!="0"){
-        const result = await db.news_folder.create({ user_id: user_id, folder_id: folder_id, news_id: news_id });
-        return result;
+        if (folder_id != "0") {
+            const result = await db.news_folder.create({ user_id: user_id, folder_id: folder_id, news_id: news_id });
+            return result;
         }
-        else return del+"";
+        else return del + "";
 
 
     } catch (err) {
@@ -263,28 +368,20 @@ async function homePageDataFilter(params, cb) {
 
 
 function newsQuery(params) {
-
-
-
     const user_id = params.user_id != '0' && params.user_id != undefined ? ' AND  uk.user_id =  ' + params.user_id : '';
     const keyword_id = params.keyword_id != '0' && params.keyword_id != undefined ? ' AND id=' + params.keyword_id : '';
     const keyword_id_2 = params.keyword_id != '0' && params.keyword_id != undefined ? ' AND keyword_id=' + params.keyword_id : '';
     const keyword_cat_id = params.keyword_cat_id != '0' && params.keyword_cat_id != undefined ? ' AND keyword_catId=' + params.keyword_cat_id : '';
-    const keyword_cat_id_2 = params.keyword_cat_id != '0' && params.keyword_cat_id != undefined ? ' and keyword_id in (select id from keywords where keyword_catId='+ params.keyword_cat_id+')  ': '';
+    const keyword_cat_id_2 = params.keyword_cat_id != '0' && params.keyword_cat_id != undefined ? ' and keyword_id in (select id from keywords where keyword_catId=' + params.keyword_cat_id + ')  ' : '';
 
     const start_date = params.start_date != '0' && params.start_date != undefined ? " AND date(pub_date)  >=  '" + params.start_date + "'" : '';
     const end_date = params.end_date != '0' && params.end_date != undefined ? " AND date(pub_date) <='" + params.end_date + "'" : '';
     const country = params.country != '0' && params.country != undefined ? " AND NEWS_ID IN (SELECT ID FROM news WHERE country='" + params.country + "')" : '';
-    const source_id = params.source_id != '0' && params.source_id != undefined ? ' AND NEWS_ID IN (SELECT ID FROM news WHERE source_id=' + params.source_id+')' : '';
-    const folder_id = params.folder_id != '0' && params.folder_id != undefined ? ' AND  news_id  in (select news_id from news_folders where folder_id=' + params.folder_id+')' : '';
-
-
-
+    const source_id = params.source_id != '0' && params.source_id != undefined ? ' AND NEWS_ID IN (SELECT ID FROM news WHERE source_id=' + params.source_id + ')' : '';
+    const folder_id = params.folder_id != '0' && params.folder_id != undefined ? ' AND  news_id  in (select news_id from news_folders where folder_id=' + params.folder_id + ')' : '';
 
     const limit = params.limit != '0' && params.limit != undefined ? '' + params.limit : '20';
     const skip = params.skip != '0' && params.skip != undefined ? '' + params.skip : '0';
-
-
 
     return `
 -- Start Query --
@@ -298,11 +395,36 @@ function newsQuery(params) {
         left join (select distinct user_id, news_id from notes) note on n.id=note.news_id and note.user_id=   ${params.user_id} 
         where 1=1  group by n.id  order by n.id DESC
 -- End Query --`;
-
-
-
 }
 
 
+function elasticSQL(params, news_ids) {
+    const user_id = params.user_id != '0' && params.user_id != undefined ? ' AND  uk.user_id =  ' + params.user_id : '';
+    // const keyword_id = params.keyword_id != '0' && params.keyword_id != undefined ? ' AND id=' + params.keyword_id : '';
+    // const keyword_id_2 = params.keyword_id != '0' && params.keyword_id != undefined ? ' AND keyword_id=' + params.keyword_id : '';
+    // const keyword_cat_id = params.keyword_cat_id != '0' && params.keyword_cat_id != undefined ? ' AND keyword_catId=' + params.keyword_cat_id : '';
+    // const keyword_cat_id_2 = params.keyword_cat_id != '0' && params.keyword_cat_id != undefined ? ' and keyword_id in (select id from keywords where keyword_catId=' + params.keyword_cat_id + ')  ' : '';
 
+    // const start_date = params.start_date != '0' && params.start_date != undefined ? " AND date(pub_date)  >=  '" + params.start_date + "'" : '';
+    // const end_date = params.end_date != '0' && params.end_date != undefined ? " AND date(pub_date) <='" + params.end_date + "'" : '';
+    // const country = params.country != '0' && params.country != undefined ? " AND NEWS_ID IN (SELECT ID FROM news WHERE country='" + params.country + "')" : '';
+    // const source_id = params.source_id != '0' && params.source_id != undefined ? ' AND NEWS_ID IN (SELECT ID FROM news WHERE source_id=' + params.source_id + ')' : '';
+    // const folder_id = params.folder_id != '0' && params.folder_id != undefined ? ' AND  news_id  in (select news_id from news_folders where folder_id=' + params.folder_id + ')' : '';
+
+ //   const limit = params.limit != '0' && params.limit != undefined ? '' + params.limit : '20';
+  //  const skip = params.skip != '0' && params.skip != undefined ? '' + params.skip : '0';
+
+return `
+-- Start Query --
+select n.id as news_id,title,description,url,n.pub_date, source, ${params.user_id} ,group_concat(word) key_words,news_folders.folder_id in_folder,group_concat( note.news_id ) notes_news from news n 
+     left join (select * from keyword_news where 1=1  order by pub_date desc ) kn on kn.news_id= n.id
+     left join (select * from keywords where 1=1  ) k on k.id=kn.keyword_id
+	 left join keyword_category kc  on kc.id=k.keyword_catId
+     left join user_keywords uk on uk.keyword_catId=kc.id     
+	 left join news_folders on n.id=news_folders.news_id and news_folders.user_id=   ${params.user_id} 
+	 left join (select distinct user_id, news_id from notes) note on n.id=note.news_id and note.user_id=    ${params.user_id} 
+where 1=1 and n.id in  (${news_ids} ) group by n.id  order by field (n.id,${news_ids} ) 
+-- End Query --`;
+
+}
 module.exports = router;

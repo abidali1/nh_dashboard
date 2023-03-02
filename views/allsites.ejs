@@ -1,13 +1,81 @@
+<style>
+  #autocomplete-suggestions {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-top: none;
+    width: 100%;
+    max-height: 500px;
+    overflow-y: auto;
+  }
+
+  #autocomplete-suggestions>div {
+    padding: 5px;
+    cursor: pointer;
+  }
+
+  #autocomplete-suggestions>div:hover {
+    background-color: #f1f1f1;
+  }
+  .highlight {
+  background-color: #ffff66;
+}
+</style>
 <%- include('header') %>
-
-<div id="myKW" style="display: none;"><% keywords %> </div>
-<div id="mySources" style="display: none;"><%= sources %> </div>
-<div id="myCountries" style="display: none;"><%= countries %> </div>
-
-
 <div class="content-wrapper" style="min-height: 2488.31px;">
+  <div id="mySearch" style="padding:100px" class="container-fluid">
+    <h2 class="text-center "><strong>Search </strong>News<strong>Hunt</strong> </h2>
+    <form id="mySearchForm" action="enhanced-results.html">
+      <div class="col-md-10 offset-md-1">
+        <div class="form-group">
+          <div class="input-group input-group-lg">
+            <input type="text" id="myInput" autocomplete="off" class="form-control form-control-lg" placeholder="Type your keywords here" value="">
 
+            <div class="input-group-append">
+              <button type="submit" class="btn btn-lg btn-default">
+                <i class="fa fa-search"></i>
+              </button>
+            </div>
+            <div id="autocomplete-suggestions"></div>
 
+          </div>
+          <div class="col-md-10 offset-md-3">
+            <div class="row">
+              <div class="col-md-3">
+                <div style='padding: 10px;' class="form-group">
+                  <div class="icheck-material-teal">
+                    <input type="radio" name='newsFilterRadio' checked id="Optimal" />
+                    <label for="Optimal"> Optimal Search</label>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="col-md-3">
+                <div style='padding: 10px;' class="form-group">
+                  <div class="icheck-material-teal">
+                    <input type="radio" name='newsFilterRadio' id="mostRelevent" />
+                    <label for="mostRelevent"> Most Relevant</label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div style='padding: 10px; ' class="form-group">
+                  <div class="icheck-material-teal">
+                    <input type="radio" name='newsFilterRadio' id="mostRecent" />
+                    <label for="mostRecent"> Most Recent</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
 
   <!-- Content Header (Page header) -->
   <section class="content-header">
@@ -20,13 +88,13 @@
           </h1>
         </div>
 
-        <div  class="col-sm-8 col-12" style="text-align:right" id="accordion">
+        <div class="col-sm-8 col-12" style="text-align:right" id="accordion">
           <%   var cat; keywords1=JSON.parse(keywords); keywords1.forEach((row) => { if (cat==row.name) {  %>
 
           <% } else { cat=row.name; %>
 
           <button style="    margin-bottom: 5px;margin-right: 3px;" type="button" attr="<%= row.cat_id %>" class="btn bg-info " data-toggle="collapse" data-target=".<%= row.name.replace(' ','_') %>" aria-expanded="false" aria-controls="collapseExample">
-          <i class="fa fa-key"  aria-hidden="true"></i>  <%= row.name.toUpperCase() %>
+            <i class="fa fa-key" aria-hidden="true"></i> <%= row.name.toUpperCase() %>
           </button>
 
 
@@ -166,7 +234,7 @@
 
               <%   var cat1; keywords=JSON.parse(keywords); keywords.forEach((row) => { if (cat1==row.name) {  %>
               <button type="button" attr="<%= row.keyword_id %>" style="font-size: x-small;font-weight: bolder;" class="KW  btn btn-default" data-toggle="modal" data-target="#modal-default">
-                <i class="fa fa-key"></i>      <%= row.word %>
+                <i class="fa fa-key"></i> <%= row.word %>
               </button>
               <% } else { cat1=row.name; %>
 
@@ -177,11 +245,11 @@
           <div class="collapse data-parent='#accordion' <%= row.name.replace(' ','_')   %>">
             <div style="padding-top:0" class="card-body">
               <button type="button" style="font-size:x-small;font-weight: bolder;" attr="<%= row.cat_id %>" class="KW_Cat btn bg-info" data-toggle="collapse" data-target=".<%= row.name %>" aria-expanded="false" aria-controls="collapseExample">
-                <i class="fa fa-key"></i>         Show All
+                <i class="fa fa-key"></i> Show All
               </button>
 
-              <button type="button" attr="<%= row.keyword_id %>"  style="font-size: x-small;;font-weight: bolder;"  class="KW  btn  btn-default" data-toggle="modal" data-target="#modal-default">
-             <i class="fa fa-key"></i>  <%= row.word %>
+              <button type="button" attr="<%= row.keyword_id %>" style="font-size: x-small;;font-weight: bolder;" class="KW  btn  btn-default" data-toggle="modal" data-target="#modal-default">
+                <i class="fa fa-key"></i> <%= row.word %>
               </button>
 
               <%   }}); %>
@@ -205,13 +273,19 @@
     <div style='text-align: center;margin:auto;width: 80%; ' class="card"><button style="font-size: 12px;border: 1px;      padding-top: 10px;      font-weight: bold;" id='loadMore'>Please select filters and click green arrow icon...
 
       </button>
-      <button  id="loadIcon" style="    background-color: #f0f0f0; border: 1px;  padding-bottom: 10px;    font-size: 20px; color:black"><i id="loadmoreIcon" class="fa fa-arrow-circle-down" ></i></button>
+      <button id="loadIcon" style="    background-color: #f0f0f0; border: 1px;  padding-bottom: 10px;    font-size: 20px; color:black"><i id="loadmoreIcon" class="fa fa-arrow-circle-down"></i></button>
 
     </div>
 
   </section>
   <!-- /.content -->
 </div>
+<div id="myKW" style="display: none;"><% keywords %> </div>
+<div id="mySources" style="display: none;"><%= sources %> </div>
+<div id="myCountries" style="display: none;"><%= countries %> </div>
+
+
+
 
 
 </div>
@@ -273,9 +347,87 @@
   }
 
 
+  //var availableTags=[];
 
+
+
+  async function loadSuggestions(event) {
+    // alert();
+    const response = await fetch(`/news/elastic_autocomplete/` + $('#myInput').val() + "!*!3", {
+      method: "Get",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8"
+      }
+    });
+
+    const json = await response.json();
+    var tags = [];
+    console.log(tags);
+    const searchInput = document.getElementById('myInput');
+    const suggestions = document.getElementById('autocomplete-suggestions');
+
+    const query = searchInput.value.trim().toLowerCase();
+
+    // Clear the suggestions
+    suggestions.innerHTML = '';
+
+    // If the query is not empty
+    if (query !== '') {
+      // Get the suggestions from the server or from a list
+      const suggestionsList = json;
+      const matchingSuggestions = suggestionsList.filter(suggestion => suggestion.includes(query));
+
+      // Add the suggestions to the suggestions div
+      json.forEach(suggestion => {
+        const suggestionElement = document.createElement('div');
+       // suggestionElement.textContent = suggestion;
+        suggestionElement.innerHTML = suggestion.replace(new RegExp(query, 'gi'), `<span class="highlight">${query}</span>`);
+
+        suggestionElement.addEventListener('click', function() {
+          // Update the search input with the selected suggestion
+          searchInput.value = suggestion;
+
+          // Hide the autocomplete suggestions
+          suggestions.style.display = 'none';
+          $('#mySearchForm').submit();
+        });
+        suggestions.appendChild(suggestionElement);
+      });
+
+      suggestions.style.display = 'block';
+    } else {
+      // Hide the autocomplete suggestions if the query is empty
+      suggestions.style.display = 'none';
+    }
+
+    document.addEventListener('click', function(event) {
+      if (!suggestions.contains(event.target) && event.target !== searchInput) {
+        suggestions.style.display = 'none';
+      }
+    });
+
+    
+  };
 
   $(function() {
+
+    $('#myInput').on('keydown', function(e) {
+    if (typeof e.keyCode !== 'undefined' && e.keyCode === 13) {
+  //    alert('eneter');
+      throw new error;
+      e.preventDefault();
+    }
+  })
+  .typeWatch({
+      wait: 500, // 750ms
+      highlight: true,
+      captureLength: 0,
+      callback: function(value) {
+        loadSuggestions(value);
+      }
+    });
+
+
 
     load_Countries_Sources();
     loadNewsFromNavBarFileters();
@@ -377,6 +529,16 @@
 
     });
 
+    $('#mySearchForm').submit(() => {
+      // alert($('#searchText').val());
+
+
+      reset_param();
+
+
+      loadNewsFromElasticSearch($('#myInput').val());
+      return false;
+    })
 
     $("body").on('click', '.nav_folders', function() {
 
@@ -401,7 +563,9 @@
 
     });
 
-    $('#loadIcon').click( () => {$('#loadMore').click();})
+    $('#loadIcon').click(() => {
+      $('#loadMore').click();
+    })
 
   });
 
@@ -452,6 +616,74 @@
         var date = new Date(row.pub_date);
         date = date.toDateString();
         var news = newsTemplate(row.news_id, row.source, date, row.title.toUpperCase(), row.description, row.url, row.key_words.replace(',', ' | '), row.in_folder, row.notes_news);
+        // console.log(news);
+        $('#newsBlock').append(news);
+
+      });
+
+
+
+      // dataTable.row.add([json.id, json.name, json.role, json.createdAt]).draw(false);
+    } catch (err) {
+      console.log(err);
+      $(document).Toasts('create', {
+        class: 'bg-danger',
+        title: 'Error',
+        subtitle: 'Failed',
+        body: 'Server ERROR. check console.'
+      });
+    }
+
+  }
+
+  async function loadNewsFromElasticSearch(searchText) {
+    // data to be sent to the POST request
+
+
+    $('#secAnalytics').hide();
+    $('#newsBlock').show();
+    $('#secNotes').hide();
+    $('#sec_keywords').show();
+    $('#loadMore').show();
+
+
+    try {
+
+      // let myURL=await fetch('/assets/config/config.json');
+      // myURL=await myURL.json();
+      // console.log(myURL);
+
+      const response = await fetch(`/news/elastic/` + searchText + "!*!3", {
+        method: "Get",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+        }
+      });
+
+      const json = await response.json();
+      //   console.log(json);
+      if (Object.keys(json).length == 0) {
+        $('#loadMore').html('No Data Available');
+        $('#loadmoreIcon').removeClass('fa fa-arrow-circle-down');
+        $('#loadmoreIcon').addClass('fas fa-times');
+      } else {
+        $('#loadMore').html('Load More');
+        $('#loadmoreIcon').removeClass('fas fa-times');
+        $('#loadmoreIcon').addClass('fa fa-arrow-circle-down');
+
+      }
+      $('#newsBlock').html('');
+      json.forEach(row => {
+        var date = new Date(row.pub_date);
+        date = date.toDateString();
+        var key_word;
+        if (row.key_words != null) {
+          console.log(row.key_words);
+          key_word = row.key_words.replace(',', ' | ');
+        } else
+          key_word = "no Keyword"
+
+        var news = newsTemplate(row.news_id, row.source, date, row.title.toUpperCase(), row.description, row.url, key_word, row.in_folder, row.notes_news);
         // console.log(news);
         $('#newsBlock').append(news);
 

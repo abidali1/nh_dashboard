@@ -16,7 +16,6 @@ const statistics=require('./routers/statistics.js');
 const settings=require('./routers/settings.js');
 const profile=require('./routers/profile.js');
 
-
 app.use(express.json());
 
 app.use('/',news);

@@ -18,6 +18,9 @@
   <!-- Bootstrap 4 -->
   <script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- AdminLTE App -->
+
+
+
   <script src="assets/dist/js/adminlte.min.js"></script>
   <!-- AdminLTE for demo purposes -->
   <script src="assets/dist/js/demo.js"></script>
@@ -36,6 +39,10 @@
   <script src="assets/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
   <script src="assets/plugins/datatables-buttons/js/buttons.print.min.js"></script>
   <script src="assets/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  <script src="assets/dist/js/typewatch.js"></script>
+
+
   </body>
 
   </html>
@@ -60,7 +67,9 @@
 
       });
 
-
+$('#liSearch').click(function(){
+$('#mySearch').slideToggle();
+});
       $("body").on('click', '.removeFolder', async function() {
 
         if (confirm("Are you sure you want to delete this folder?")) {
@@ -173,7 +182,7 @@
         //alert($(this).attr('notes_id'));
       });
 
-
+      
 
 
       $('body').on('click', '.dtEditNote', function() {
@@ -717,6 +726,8 @@
         });
       }
     }
+
+
 
     function getDateTimeFormate(str) {
       var today = new Date(str);

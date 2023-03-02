@@ -11,12 +11,16 @@
   <link rel="stylesheet" href="assets/plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="assets/dist/css/adminlte.min.css">
+
+
    <!-- Theme style -->
    <link rel="stylesheet" href="assets\docs\assets\css\icheck-material.min.css">
    <link rel="stylesheet" href="assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 <link rel="stylesheet" href="assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 <link rel="stylesheet" href="assets/build/mycss.css">
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 </head>  
 
 <body class="sidebar-mini layout-fixed layout-navbar-fixed">
@@ -58,7 +62,26 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-      
+      <li class="nav-item">
+        <a class="nav-link" data-widget="navbar-search" href="#" role="button">
+          <i class="fas fa-search"></i>
+        </a>
+        <div class="navbar-search-block" style="display: none;">
+          <form id="searchForm" class="form-inline">
+            <div class="input-group input-group-sm">
+              <input class="form-control form-control-navbar" id="searchText" type="search" placeholder="Search" aria-label="Search">
+              <div class="input-group-append">
+                <button class="btn btn-navbar" type="submit">
+                  <i class="fas fa-search"></i>
+                </button>
+                <button class="btn btn-navbar" type="button" data-widget="navbar-search">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </li>
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-comments"></i>
@@ -167,7 +190,17 @@
        
        
        
-       
+               <li class="nav-item">
+                <a id="liSearch" href="#" class="nav-link">
+                  <i class="nav-icon fas fa-tachometer-alt"></i>
+                  <p>
+                    Search
+                    <i class="right fas "></i>
+                  </p>
+                </a>
+               
+              </li>
+    
        
        
        
