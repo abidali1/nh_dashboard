@@ -52,6 +52,8 @@ router.get('/elastic_autocomplete/:queryText', async (req, res) => {
 
 router.get('/elastic/:queryText!*!:user_id', async (req, res) => {
     console.log(req.params.queryText);
+    const noSpecialChars = req.params.queryText.replace(/[^a-zA-Z0-9 ]/g, '');
+
     const response = await client.search({
         index: 'news_elastic',
         "track_total_hits": true,
@@ -67,7 +69,7 @@ router.get('/elastic/:queryText!*!:user_id', async (req, res) => {
                 // }
 
                 "query_string": {
-                    "query": req.params.queryText,
+                    "query": noSpecialChars,
                     "default_field": "title"
                   }
 

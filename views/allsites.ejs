@@ -21,55 +21,55 @@
   #autocomplete-suggestions>div:hover {
     background-color: #f1f1f1;
   }
+
   .highlight {
-  background-color: #ffff66;
-}
+    background-color: #ffff66;
+  }
 </style>
 <%- include('header') %>
 <div class="content-wrapper" style="min-height: 2488.31px;">
-  <div id="mySearch" style="padding:100px" class="container-fluid">
+  <div id="mySearch" style="padding-top:20px" class="container-fluid">
     <h2 class="text-center "><strong>Search </strong>News<strong>Hunt</strong> </h2>
     <form id="mySearchForm" action="enhanced-results.html">
-      <div class="col-md-10 offset-md-1">
+      <div class="col-md-10 offset-md-1 col-12">
         <div class="form-group">
           <div class="input-group input-group-lg">
             <input type="text" id="myInput" autocomplete="off" class="form-control form-control-lg" placeholder="Type your keywords here" value="">
-
             <div class="input-group-append">
               <button type="submit" class="btn btn-lg btn-default">
                 <i class="fa fa-search"></i>
               </button>
             </div>
             <div id="autocomplete-suggestions"></div>
-
           </div>
-          <div class="col-md-10 offset-md-3">
+          <div class="col-12">
             <div class="row">
-              <div class="col-md-3">
-                <div style='padding: 10px;' class="form-group">
-                  <div class="icheck-material-teal">
-                    <input type="radio" name='newsFilterRadio' checked id="Optimal" />
-                    <label for="Optimal"> Optimal Search</label>
+
+                  <div class="offset-md-2 col-md-3   col-4">
+                    <div style='padding: 10px;' class="form-group">
+                      <div class="icheck-material-teal">
+                        <input type="radio" name='newsFilterRadio' checked id="Optimal" />
+                        <label for="Optimal"> Optimal Search</label>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-              
-              <div class="col-md-3">
-                <div style='padding: 10px;' class="form-group">
-                  <div class="icheck-material-teal">
-                    <input type="radio" name='newsFilterRadio' id="mostRelevent" />
-                    <label for="mostRelevent"> Most Relevant</label>
+                  <div class="col-md-3  col-4">
+                    <div style='padding: 10px;' class="form-group">
+                      <div class="icheck-material-teal">
+                        <input type="radio" name='newsFilterRadio' id="mostRelevent" />
+                        <label for="mostRelevent"> Most Relevant</label>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-              <div class="col-md-3">
-                <div style='padding: 10px; ' class="form-group">
-                  <div class="icheck-material-teal">
-                    <input type="radio" name='newsFilterRadio' id="mostRecent" />
-                    <label for="mostRecent"> Most Recent</label>
+                  <div class="col-md-3 col-4">
+                    <div style='padding: 10px; ' class="form-group">
+                      <div class="icheck-material-teal">
+                        <input type="radio" name='newsFilterRadio' id="mostRecent" />
+                        <label for="mostRecent"> Most Recent</label>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
+               
             </div>
           </div>
         </div>
@@ -380,7 +380,7 @@
       // Add the suggestions to the suggestions div
       json.forEach(suggestion => {
         const suggestionElement = document.createElement('div');
-       // suggestionElement.textContent = suggestion;
+        // suggestionElement.textContent = suggestion;
         suggestionElement.innerHTML = suggestion.replace(new RegExp(query, 'gi'), `<span class="highlight">${query}</span>`);
 
         suggestionElement.addEventListener('click', function() {
@@ -406,26 +406,26 @@
       }
     });
 
-    
+
   };
 
   $(function() {
 
     $('#myInput').on('keydown', function(e) {
-    if (typeof e.keyCode !== 'undefined' && e.keyCode === 13) {
-  //    alert('eneter');
-      throw new error;
-      e.preventDefault();
-    }
-  })
-  .typeWatch({
-      wait: 500, // 750ms
-      highlight: true,
-      captureLength: 0,
-      callback: function(value) {
-        loadSuggestions(value);
-      }
-    });
+        if (typeof e.keyCode !== 'undefined' && e.keyCode === 13) {
+          //    alert('eneter');
+          throw new error;
+          e.preventDefault();
+        }
+      })
+      .typeWatch({
+        wait: 500, // 750ms
+        highlight: true,
+        captureLength: 0,
+        callback: function(value) {
+          loadSuggestions(value);
+        }
+      });
 
 
 
@@ -652,8 +652,10 @@
       // let myURL=await fetch('/assets/config/config.json');
       // myURL=await myURL.json();
       // console.log(myURL);
+      const noSpecialChars = searchText.replace(/[^a-zA-Z0-9 ]/g, '');
 
-      const response = await fetch(`/news/elastic/` + searchText + "!*!3", {
+
+      const response = await fetch(`/news/elastic/` + noSpecialChars + "!*!3", {
         method: "Get",
         headers: {
           "Content-type": "application/json; charset=UTF-8"
