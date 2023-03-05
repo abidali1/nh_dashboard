@@ -52,7 +52,6 @@ router.get('/elastic_autocomplete/:queryText', async (req, res) => {
 
 router.get('/elastic/:queryText!*!:user_id', async (req, res) => {
     console.log(req.params.queryText);
-    const noSpecialChars = req.params.queryText.replace(/[^a-zA-Z0-9 ]/g, '');
 
     const response = await client.search({
         index: 'news_elastic',
@@ -69,7 +68,7 @@ router.get('/elastic/:queryText!*!:user_id', async (req, res) => {
                 // }
 
                 "query_string": {
-                    "query": noSpecialChars,
+                    "query": req.params.queryText,
                     "default_field": "title"
                   }
 
@@ -385,8 +384,10 @@ function newsQuery(params) {
     const limit = params.limit != '0' && params.limit != undefined ? '' + params.limit : '20';
     const skip = params.skip != '0' && params.skip != undefined ? '' + params.skip : '0';
 
+if (folder_id==''){
+
     return `
--- Start Query --
+-- Start Query test--
     select kn.news_id,title,description,url,n.pub_date, source, a.user_id,group_concat(word) key_words,news_folders.folder_id in_folder,group_concat( note.news_id ) notes_news from (
         select   k.id,user_id, k.word  from user_keywords    uk  
         inner join keyword_category kc  on kc.id=uk.keyword_catId ${user_id} 
@@ -397,7 +398,31 @@ function newsQuery(params) {
         left join (select distinct user_id, news_id from notes) note on n.id=note.news_id and note.user_id=   ${params.user_id} 
         where 1=1  group by n.id  order by n.id DESC
 -- End Query --`;
+    }
+    else{
+        
+    return `
+    -- Start Query test--
+    select n.id as news_id,title,description,url,n.pub_date, source, ${params.user_id},group_concat(word) key_words,news_folders.folder_id in_folder,group_concat( notes.news_id ) notes_news from news_folders
+    left join  news n  on n.id=news_folders.news_id and news_folders.user_id=   ${params.user_id} 
+    left join (select * from keyword_news where 1=1  order by pub_date desc ) kn on kn.news_id= n.id
+    left join (select * from keywords where 1=1  ) k on k.id=kn.keyword_id
+    left join keyword_category kc  on kc.id=k.keyword_catId
+    left join user_keywords uk on uk.keyword_catId=kc.id
+    left join  notes on n.id=notes.news_id and notes.user_id=    ${params.user_id} 
+    where 1=1 and news_folders.folder_id=${params.folder_id} group by n.id order by n.id DESC
+    -- End Query --`;
+    }
+    
+
 }
+
+
+
+
+
+
+
 
 
 function elasticSQL(params, news_ids) {

@@ -127,7 +127,15 @@
     row = row[0];
     var date = new Date(row.pub_date);
     date = date.toDateString();
-    var news = newsTemplate(row.news_id, row.source, date, row.title.toUpperCase(), row.description, row.url, row.key_words.replace(',', ' | '), row.in_folder, row.notes_news, row.body, row.note_id,row.media);
+
+    var key_word;
+        if (row.key_words != null) {
+          console.log(row.key_words);
+          key_word = row.key_words.replace(',', ' | ');
+        } else
+          key_word = "no Keyword"
+
+    var news = newsTemplate(row.news_id, row.source, date, row.title.toUpperCase(), row.description, row.url, key_word, row.in_folder, row.notes_news, row.body, row.note_id,row.media);
     // console.log(news);
     $('#news_part').append(news);
 

@@ -615,7 +615,13 @@
       json.forEach(row => {
         var date = new Date(row.pub_date);
         date = date.toDateString();
-        var news = newsTemplate(row.news_id, row.source, date, row.title.toUpperCase(), row.description, row.url, row.key_words.replace(',', ' | '), row.in_folder, row.notes_news);
+        var key_word;
+        if (row.key_words != null) {
+          console.log(row.key_words);
+          key_word = row.key_words.replace(',', ' | ');
+        } else
+          key_word = "no Keyword"
+        var news = newsTemplate(row.news_id, row.source, date, row.title.toUpperCase(), row.description, row.url, key_word, row.in_folder, row.notes_news);
         // console.log(news);
         $('#newsBlock').append(news);
 
