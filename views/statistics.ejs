@@ -197,14 +197,26 @@
             <li class="nav-item">
 
               <a id="secKibanaDashboardBTN" href="#" class="nav-link">
-                <i class="nav-icon fas fa-copy"></i>
+                <i class="nav-icon far fa-circle text-info"></i>
                 <p>
-                  Kibana Dashboard
+                  Saudi Dashboard
                   <i class="fas fa-angle-right right"></i>
 
                 </p>
               </a>
             </li>
+            <li class="nav-item">
+
+              <a id="politicsDashboardBTN" href="#" class="nav-link">
+                <i class="nav-icon far fa-circle text-info"></i>
+                <p>
+                  Politics Dashboard
+                  <i class="fas fa-angle-right right"></i>
+
+                </p>
+              </a>
+            </li>
+
 
             <li class="nav-item">
               <a id="allNotes" href="#" class="nav-link">
@@ -230,9 +242,9 @@
 
 
     <div class="content-wrapper" style="min-height: 2488.31px;">
-   
 
-   
+
+
       <!-- Content Header (Page header) -->
       <section style="padding: 0;margin-left: 20px;" class="content-header">
         <div class="container-fluid">
@@ -289,6 +301,10 @@
         </div>
       </section>
       <section id="secNotes" style="display: none;" class="content-header"></section>
+      <section id="politicsDashboard" style="   padding-top: 0; padding-bottom: 0;display: none;" class="content-header">
+
+        <iframe src="https://my-deployment-2ac4df.kb.us-central1.gcp.cloud.es.io:9243/app/dashboards#/view/7f45cd70-bd14-11ed-beec-351afbb2c12d?embed=true&_g=(refreshInterval:(pause:!t,value:0),time:(from:now-5y,to:now))&_a=(viewMode:view)" height="580px" width="100%"></iframe>
+      </section>
 
       <section id="secKibanaDashboard" style="   padding-top: 0; padding-bottom: 0;" class="content-header">
         <iframe src="https://my-deployment-2ac4df.kb.us-central1.gcp.cloud.es.io:9243/app/dashboards?auth_provider_hint=anonymous1#/view/054e8aa0-bc12-11ed-969d-bf2f08b1dc05?embed=true&_g=(refreshInterval:(pause:!t,value:0),time:(from:'2018-02-17T19:00:00.000Z',to:'2023-03-23T19:00:00.000Z'))&_a=(viewMode:view)&show-time-filter=true" height="580px" width="100%"></iframe>
@@ -729,7 +745,7 @@
           </div>
         </section>
       </section>
-     
+
     </div>
 
     </section>
@@ -797,8 +813,8 @@
   $(function() {
     $('#timePeriod').on('change', () => {
 
-      keyword="0";
-      keywordCat="0";
+      keyword = "0";
+      keywordCat = "0";
       if ($('#timePeriod').val() == '0') {
         start_date = '0';
         end_date = '0';
@@ -810,7 +826,7 @@
         date.setDate(date.getDate());
 
         var dateString = date.toISOString().split('T')[0]; // "2016-06-08"
-       
+
         start_date = end_date = dateString;
       }
 
@@ -848,8 +864,8 @@
       }
       start_date = $('#startdate').val();
       end_date = $('#enddate').val();
-      keyword="0";
-      keywordCat="0";
+      keyword = "0";
+      keywordCat = "0";
       getAnalyticsContents(3);
 
 
@@ -893,12 +909,12 @@
 
 
     $('body').on('click', '.cardFooter', function() {
-     var myDiv = $(this).parent().parent().parent();
-     $(myDiv).removeClass("col-lg-1");
+      var myDiv = $(this).parent().parent().parent();
+      $(myDiv).removeClass("col-lg-1");
 
       $(myDiv).addClass("col-lg-3");
       console.log(myDiv);
-   //   getAnalyticsContents(3);
+      //   getAnalyticsContents(3);
     });
 
     $('#allNotes').on('click', function() {
@@ -909,6 +925,8 @@
 
       $('#secAnalyticsContents').hide();
       $('#secNotes').show();
+      $('#politicsDashboard').hide();
+
       $('#secNameHeader').text('Notes');
 
 
@@ -924,6 +942,8 @@
       $('#secAnalytics').show();
       $('#secNotes').hide();
       $('#secAnalyticsContents').hide();
+      $('#politicsDashboard').hide();
+
       $('#secNameHeader').text('Analytics');
 
 
@@ -939,23 +959,39 @@
 
       $('#secAnalytics').hide();
       $('#secNotes').hide();
+      $('#politicsDashboard').hide();
+
       $('#secAnalyticsContents').show();
       $('#secNameHeader').text('Analytics');
     });
 
     $('#secKibanaDashboardBTN').on('click', function() {
 
-$('#contentFilter').hide();
+      $('#contentFilter').hide();
+      $('#secKibanaDashboard').show();
 
-$('#secAnalytics').hide();
-$('#secNotes').hide();
-$('#secAnalyticsContents').hide();
-$('#secKibanaDashboard').show();
 
-$('#secNameHeader').text('Analytics');
-});
-    secKibanaDashboard
+      $('#secAnalytics').hide();
+      $('#secNotes').hide();
+      $('#secAnalyticsContents').hide();
+      $('#politicsDashboard').hide();
 
+      $('#secNameHeader').text('Analytics');
+    });
+
+    $('#politicsDashboardBTN').on('click', function() {
+
+      $('#contentFilter').hide();
+      $('#politicsDashboard').show();
+
+
+      $('#secAnalytics').hide();
+      $('#secNotes').hide();
+      $('#secAnalyticsContents').hide();
+      $('#secKibanaDashboard').hide();
+
+      $('#secNameHeader').text('Analytics');
+    });
 
   });
 
@@ -1305,8 +1341,8 @@ $('#secNameHeader').text('Analytics');
           keyward_Name = $(keyward_Name).parent();
           keyward_Name = $(keyward_Name).find('a').html();
           //alert( keyward_Name);
-          if(keyward_Name.length>15)
-          keyward_Name=keyward_Name.slice(0,15)+'...';
+          if (keyward_Name.length > 15)
+            keyward_Name = keyward_Name.slice(0, 15) + '...';
           var banner = `    <a class="bg-warning" style='text-align: center;font-weight: 600; font-size: xx-small;'>${keyward_Name} </a>
 `;
 
